@@ -8,7 +8,5 @@ public class GatepassApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GatepassApplication.class, args);
-		System.out.println("This is the beginning");
 	}
-
 }

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="base :: layout">
 <head>
-    <meta charset="UTF-8">
-    <title>Gate Pass </title>
+    <title>Home</title>
 </head>
 <body>
-<h1 style="color:purple;bg-color:neon">This is the new era of Learning and growing!</h1>
+<h1 th:text="${message}"></h1>
 </body>
 </html>
