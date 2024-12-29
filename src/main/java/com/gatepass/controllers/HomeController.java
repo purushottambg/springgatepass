@@ -6,17 +6,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path = "/")
-
+@RequestMapping("/")
 public class HomeController {
+
     @GetMapping("index")
     public String indexPage(Model model) {
-        model.addAttribute("message", "Hey there");
-        return "index Hello";  // Maps to templates/index.html
+        model.addAttribute("message", "Message for the index from controller!");
+        return "index";  // Template: src/main/resources/templates/index.html
     }
 
-    @GetMapping("asach")
-    public String asach(){
-        return "asach";
+    @GetMapping("register")
+    public String registerPage(Model model){
+        model.addAttribute("message", "Dynamic Message from Controller!");
+        return "register";
     }
 }
