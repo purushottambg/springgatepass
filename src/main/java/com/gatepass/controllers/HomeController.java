@@ -1,5 +1,6 @@
 package com.gatepass.controllers;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,15 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
 
-    @GetMapping("index")
+    @GetMapping()
     public String indexPage(Model model) {
-        model.addAttribute("message", "Message for the index from controller!");
-        return "index";  // Template: src/main/resources/templates/index.html
+        PersonData user = new PersonData(1,"Purushottam Gutthe", "Java", 30);
+        model.addAttribute("user", user);
+        return "index";
     }
 
     @GetMapping("register")
     public String registerPage(Model model){
-        model.addAttribute("message", "Dynamic Message from Controller!");
+        PersonData Samruddhi = new PersonData(2, "Samruddhi", "Toddler", 30);
+        model.addAttribute("Samruddhi", Samruddhi);
         return "register";
     }
 }

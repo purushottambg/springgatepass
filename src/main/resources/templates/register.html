@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www/thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>Register Page</title>
 </head>
 <body>
-<h1> Purushottam Bolte</h1>
+<h1> Selection Expression in Thymeleaf</h1>
+<div th:object="${Samruddhi}">
+    <p> ID:         <strong th:text="*{id ?: 'Default ID'}"> </strong>   </p>
+    <p> Name:       <strong th:text="*{name ?: 'user name'}">     </strong>   </p>
+    <p> House No:   <strong th:text="*{houseNo ?: 'House No'}">  </strong> </p>
+    <p> Subject:    <strong th:text="*{subject ?: 'Subject'}">  </strong> </p>
+</div>
 </body>
 </html>
