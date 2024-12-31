@@ -16,16 +16,22 @@ public class HomeController {
         model.addAttribute("user", user);
         return "index";
     }
-
-    @GetMapping("register")
-    public String registerPage(Model model){
-        PersonData Samruddhi = new PersonData(2, "Samruddhi", "Toddler", 30);
-        model.addAttribute("Samruddhi", Samruddhi);
-        return "register";
+    @GetMapping("thmlf/variable-expression")
+    public String variableExpression(Model model) {
+        PersonData user = new PersonData(1,"Purushottam Gutthe", "Java", 30);
+        model.addAttribute("user", user);
+        return "thmlf/variable-expression";
     }
 
-    @GetMapping("message-variable")
-    public String messageVariable(){
-        return "message-variable";
+    @GetMapping("thmlf/selection-expression")
+    public String selectionExpression(Model model){
+        PersonData Samruddhi = new PersonData(2, "Samruddhi", "Toddler", 30);
+        model.addAttribute("Samruddhi", Samruddhi);
+        return "thmlf/selection-expression";
+    }
+
+    @GetMapping("thmlf/message-expression")
+    public String messageExpression(){
+        return "thmlf/message-expression";
     }
 }
