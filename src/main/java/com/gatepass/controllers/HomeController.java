@@ -34,4 +34,9 @@ public class HomeController {
     public String messageExpression(){
         return "thmlf/message-expression";
     }
+
+    @GetMapping("thmlf/link-expression")
+    public String linkExpression(){
+        return "thmlf/link-expression";
+    }
 }
