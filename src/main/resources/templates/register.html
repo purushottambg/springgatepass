@@ -6,8 +6,8 @@
 </head>
 <body>
 <h1> Selection Expression in Thymeleaf</h1>
-<div th:object="${Samruddhi}">
-    <p> ID:         <strong th:text="*{id ?: 'Default ID'}"> </strong>   </p>
+<div th:object="${Samruddhi}">   <!-- Object created for Selection Expression -->
+    <p> ID:         <strong th:text="*{id ?: 'Default ID'}"> </strong>   </p>  <!-- Selection Expression Syntax -->
     <p> Name:       <strong th:text="*{name ?: 'user name'}">     </strong>   </p>
     <p> House No:   <strong th:text="*{houseNo ?: 'House No'}">  </strong> </p>
     <p> Subject:    <strong th:text="*{subject ?: 'Subject'}">  </strong> </p>

@@ -23,4 +23,9 @@ public class HomeController {
         model.addAttribute("Samruddhi", Samruddhi);
         return "register";
     }
+
+    @GetMapping("message-variable")
+    public String messageVariable(){
+        return "message-variable";
+    }
 }
