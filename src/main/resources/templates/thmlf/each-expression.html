@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+        <title th:text="#{eachexp.title}"></title>
+</head>
+<body>
+    <h3> This is for the explanation of the each-expressions in thymeleaf!    </h3>
+    <table style="border:2px">
+        <thead>
+        <td>User ID</td>
+        <td>User Name</td>
+        <td>User House No</td>
+        <td>User Subject</td>
+        <td>Status</td>
+        </thead>
+        <tbody>
+        <tr th:each="user, userStat: ${Users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.houseNo}"></td>
+            <td th:text="${user.subject}"></td>
+            <td th:text="${userStat.index+1}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

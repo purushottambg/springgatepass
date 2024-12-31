@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Link Expression</title>
+    <link th:href="@{/test.css}" rel="stylesheet">
 </head>
 <body>
 <h1> Link Expression in Thymeleaf</h1>
 <div>
-    <a th:href="@{thmlf/selection-expression}"> Selection Expression Page </br></a>
-    <a th:href="@{thmlf/message-expression}"> message Expression Page</br></a>
-    <a th:href="@{thmlf/variable-expression}">  variable Expression Page</br></a>
+    <a th:href="@{selection-expression}" > Selection Expression Page </br></a>
+    <a th:href="@{message-expression}"> message Expression Page</br></a>
+    <a th:href="@{variable-expression}">  variable Expression Page</br></a>
+    <a th:href="@{variable-expression/{id}(id=${id})}">  Parameterized fake link for id 1</br></a>
 </div>
 </body>
 </html>
