@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="htttp://www.thymeleaf.org">
+<head>
+    <link th:href="@{/test.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title th:text="#{if.title}"></title>
+</head>
+<body>
+    <h1 th:text="#{ifunless.head}"></h1>
+<table style="border: 1px solid black;border-collapse: collapse;">
+    <thead>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Subject</td>
+        <td>house no</td>
+        <td>30th Homie</td>
+    </thead>
+    <tr th:each="user: ${Users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.subject}"></td>
+        <td th:text="${user.houseNo}"></td>
+        <td >
+            <p th:if="${user.houseNo}==30">Homie from house no 30</p>
+            <p th:unless="${user.houseNo}==30">Not Homie from house no 30</p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

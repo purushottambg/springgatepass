@@ -62,4 +62,18 @@ public class HomeController {
         model.addAttribute("Users", Users);
         return "thmlf/each-expression";
     }
+    @GetMapping("thmlf/if-expression")
+    public String ifUnlessExpression(Model model){
+        PersonData user = new PersonData(1,"Purushottam", "Java", 30);
+        PersonData Samruddhi = new PersonData(2, "Samruddhi", "Toddler", 32);
+        PersonData Damodhar = new PersonData(3, "Damodhar", "Adult", 32);
+        PersonData Gokarna = new PersonData(4, "Gokarna", "HouseWife", 30);
+        List<PersonData> Users = new ArrayList<>();
+        Users.add(user);
+        Users.add(Samruddhi);
+        Users.add(Damodhar);
+        Users.add(Gokarna);
+        model.addAttribute("Users", Users);
+        return "thmlf/if-expression";
+    }
 }
