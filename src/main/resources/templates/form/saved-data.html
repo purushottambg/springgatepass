@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{saved-data.message}">Saved Data Display</title>
+</head>
+<body>
+<div align="center"> 
+  <div style="border-style:solid;width:500px">
+    
+      <p>Id:  <strong th:text="${formData.id}"/> </p>
+      <p>Name:  <strong  th:text="${formData.name}"/> </p>
+      <p>Department:  <strong th:text="${formData.department}"/> </p>
+      <p>Subject:  <strong th:text="${formData.subject}"/> </p>
+      <p>Email:  <strong th:text="${formData.email}"/> </p>
+      <p>Address:  <strong th:text="${formData.address}"/> </p>
+    <p>isTeaching: <strong th:text="${formData.isTeaching}"/> </p>
+        
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
