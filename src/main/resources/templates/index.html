@@ -1,14 +1,25 @@
 <!DOCTYPE html>
-<html language="en" xmlns:th="http://www.thymeleaf.org" >
+<html language="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>SpringBoot Powered GatePass</title>
 </head>
 <body>
+
+<header th:insert="/staticfrags/header">
+    <!-- Header must be declared here -->
+</header>
+
+
 <h1> Links to pages in Thymeleaf Tutorial</h1>
 <div>
     <a th:href="@{thmlf/selection-expression}"> Selection Expression Page </br></a>
     <a th:href="@{thmlf/message-expression}"> message Expression Page</br></a>
     <a th:href="@{thmlf/variable-expression}">  variable Expression Page</br></a>
 </div>
+
+
+<footer th:insert="/staticfrags/footer">
+    <!-- Footer must be declared here -->
+</footer>
 </body>
 </html>
