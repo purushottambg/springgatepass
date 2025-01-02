@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f4f4f4; /* Light gray background */
+  padding: 10px 20px;
+  border-bottom: 2px solid #ddd; /* Adds a bottom border */
+}
+
+.header-left img {
+  height: 60px; /* Adjust size of the logo */
+  width: auto; /* Maintain aspect ratio */
+}
+
+.header-right {
+  font-family: Arial, sans-serif;
+  font-size: 1.2em; /* Adjust font size */
+  color: #333; /* Text color */
+  text-align: right; /* Align text to the right */
+  line-height: 1.4; /* Improve text readability */
+}
