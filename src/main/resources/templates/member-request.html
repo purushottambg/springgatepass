@@ -1,11 +1,99 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Request Membership</title>
-</head>
-<body>
-  <h4>Fill the below form to get Membership</h4>
 
+    <div>
+        <link rel="stylesheet" href="../CSSFiles/iheader.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="../CSSFiles/style.css">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </div>
+</head>
+
+<body>
+<header th:insert="/staticfrags/header"?>
+    <!-- Header has been imported and defined in static folder -->
+</header>
+
+<div class="container" style="padding: 8px;">
+
+    <div class="container">
+        <h3>Fill all the fields correctly.</h3>
+        <form method="post" th:action="@{/ops/save-request}">
+            <div class="form-group">
+                <label for="sname" required>User Name</label>
+                <input type="text" class="form-control" placeholder="username1234" name="username" id="username" pattern="[A-Za-z0-9]+" title="Try to enter your first name followed by last fout digits of your phone Number" required readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="fname" required>First Name</label>
+                <input type="text" class="form-control"  id="fname" name="fname" placeholder="First Name" pattern="[A-Za-z]+"  required>
+            </div>
+            <div class="form-group">
+                <label for="sname" required>Middle Name</label>
+                <input type="text" class="form-control" id="sname" name="sname" placeholder="Middle Name/Optional" pattern="[A-Za-z]+">
+            </div>
+            <div class="form-group">
+                <label for="lname" required>last Name</label>
+                <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" pattern="[A-Za-z]+" required>
+            </div>
+            <div class="form-group">
+                <label for="CNumber" required>Contact Number</label>
+                <input type="tel" class="form-control" id="CNumber" name="CNumber" placeholder="10 digit Contact Number" pattern="[0-9]{10}" required>
+            </div>
+            <div class="form-group">
+                <label for="email" required>Email Addredd</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="yourmail@gmail.com" required>
+            </div>
+            <div class="form-group">
+                <label for="department" required>Department</label>
+                <select class="form-control" id="department" name="Department">
+                    <option id="null" >Choose Department</option>
+                    <option id="MCA" value="1">MCA Department</option>
+                    <option id="MBA" value="2">MBA Department</option>
+                    <option id="Computer" value="3">Computer Engineering</option>
+                    <option id="E&TC" value="4">E&TC Engineering</option>
+                    <option id="ELEctric" value="5">Electric Engineering</option>
+                    <option id="IT" value="6">IT Engineering</option>
+                    <option id="MECH" value="7">Mechanical Engineering</option>
+                    <option id="FE" value="8">FE Engineering</option>
+                    <option id="Lib" value="9">Library Department</option>
+                    <option id="Oth" value="10">Other Department</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="designation" required>Designation</label>
+                <select class="form-control" id="designation" name="designation">
+                    <option id="null" value="null">Your Role</option>
+                    <option id="Staff" value="Asstprofessor ">Assistant Professor </option>
+                    <option id="TPO" value="TPO">TPO</option>
+                    <option id="Library" value="Library">Library</option>
+                    <option id="Other Staff" value="OtherStaff" required>Cleark/Peon/Office Staff etc</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <tr>
+                    <td><input type="submit" value="Submit" onclick="checkUserName()"></td>
+                    <td><input type="reset" value="Erase Data"></td>
+                </tr>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<footer th:insert="/staticfrags/footer">
+
+</footer>
 </body>
 </html>
+
+
+
