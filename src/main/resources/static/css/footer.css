@@ -258,3 +258,15 @@
 .footer-area-bottom .payment-method li {
   display: inline-block;
 }
+
+footer {
+    background-color: #333;  Example background color */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000; /* Ensures it stays above other content if needed */
+}
