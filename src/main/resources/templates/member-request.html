@@ -22,35 +22,35 @@
 
     <div class="container">
         <h3>Fill all the fields correctly.</h3>
-        <form method="post" th:action="@{/ops/save-request}">
+        <form role="form" th:method="post" th:action="@{/ops/save-request}" th:object="${membershipRequest}">
             <div class="form-group">
                 <label for="sname" required>User Name</label>
-                <input type="text" class="form-control" placeholder="username1234" name="username" id="username" pattern="[A-Za-z0-9]+" title="Try to enter your first name followed by last fout digits of your phone Number" required readonly>
+                <input type="text" class="form-control" placeholder="username1234" name="username" id="username" pattern="[A-Za-z0-9]+" title="Try to enter your first name followed by last fout digits of your phone Number" th:field="*{username}" required readonly>
             </div>
 
             <div class="form-group">
                 <label for="fname" required>First Name</label>
-                <input type="text" class="form-control"  id="fname" name="fname" placeholder="First Name" pattern="[A-Za-z]+"  required>
+                <input type="text" class="form-control"  id="fname" name="fname" placeholder="First Name" pattern="[A-Za-z]+"  th:field="*{fname}" required>
             </div>
             <div class="form-group">
                 <label for="sname" required>Middle Name</label>
-                <input type="text" class="form-control" id="sname" name="sname" placeholder="Middle Name/Optional" pattern="[A-Za-z]+">
+                <input type="text" class="form-control" id="sname" name="sname" placeholder="Middle Name/Optional" pattern="[A-Za-z]+" th:field="*{sname}">
             </div>
             <div class="form-group">
                 <label for="lname" required>last Name</label>
-                <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" pattern="[A-Za-z]+" required>
+                <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" pattern="[A-Za-z]+" th:field="*{lname}" required>
             </div>
             <div class="form-group">
                 <label for="CNumber" required>Contact Number</label>
-                <input type="tel" class="form-control" id="CNumber" name="CNumber" placeholder="10 digit Contact Number" pattern="[0-9]{10}" required>
+                <input type="tel" class="form-control" id="CNumber" name="CNumber" placeholder="10 digit Contact Number" pattern="[0-9]{10}" th:field="*{phone}" required>
             </div>
             <div class="form-group">
                 <label for="email" required>Email Addredd</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="yourmail@gmail.com" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="yourmail@gmail.com" th:field="*{email}" required>
             </div>
             <div class="form-group">
                 <label for="department" required>Department</label>
-                <select class="form-control" id="department" name="Department">
+                <select class="form-control" id="department" name="Department" th:field="*{dept}">
                     <option id="null" >Choose Department</option>
                     <option id="MCA" value="1">MCA Department</option>
                     <option id="MBA" value="2">MBA Department</option>
@@ -66,7 +66,7 @@
             </div>
             <div class="form-group">
                 <label for="designation" required>Designation</label>
-                <select class="form-control" id="designation" name="designation">
+                <select class="form-control" id="designation" name="designation" th:field="*{designation}">
                     <option id="null" value="null">Your Role</option>
                     <option id="Staff" value="Asstprofessor ">Assistant Professor </option>
                     <option id="TPO" value="TPO">TPO</option>
@@ -76,7 +76,7 @@
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" th:field="*{password}" required>
             </div>
             <div class="form-group">
                 <tr>
@@ -88,10 +88,10 @@
     </div>
 
 </div>
-
+<!--
 <footer th:insert="/staticfrags/footer">
 
-</footer>
+</footer>-->
 </body>
 </html>
 
