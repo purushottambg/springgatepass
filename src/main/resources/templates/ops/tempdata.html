@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TempData</title>
+</head>
+<body>
+    <h1>This is Temporary Data</h1>
+     <div th:object="${tempData}">
+         <p>Name:    <strong th:text="*{name}"> </strong> </p>
+         <p>Address: <strong th:text="*{address}"> </strong> </p>
+         <p>Contact: <strong th:text="*{phoneNumber}"> </strong> </p>
+         <p>Age:     <strong th:text="*{age}"> </strong> </p>
+     </div>
+
+</body>
+</html>
