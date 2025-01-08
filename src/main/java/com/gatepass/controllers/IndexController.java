@@ -1,5 +1,6 @@
 package com.gatepass.controllers;
 
+import com.gatepass.entities.MembershipRequest;
 import com.gatepass.entities.TempData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,9 @@ public class IndexController {
     }
 
     @GetMapping("member-request")
-    public String memberRequest(){
+    public String memberRequest(Model model){
+        MembershipRequest membershipRequest = new MembershipRequest();
+        model.addAttribute("membershipRequest", membershipRequest);
         return "member-request";
     }
 }

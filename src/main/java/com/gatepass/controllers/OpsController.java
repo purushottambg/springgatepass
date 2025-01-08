@@ -15,8 +15,7 @@ public class OpsController {
 
     @PostMapping("ops/save-request")
     public String saveRequestData(Model model, @ModelAttribute("membershipRequest") MembershipRequest membershipRequest){            //Data entered by the user must be saved
-        MembershipRequest membershipRequest1=new MembershipRequest();
-        model.addAttribute("membershipRequest1", membershipRequest1);
+        model.addAttribute("membershipRequest", membershipRequest);
         return "ops/saved-request";
     }
 
