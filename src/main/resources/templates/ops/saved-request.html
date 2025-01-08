@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<header th:insert="/staticfrags/header">
+    <!-- Header has been imported -->
+
+</header>
+
+
+
+<h1> Here we can mention the data that has been reached till the page!!</h1>
+
+<div th:each="membership, index : ${membershipRequest}">
+    <p> Application ID: <strong th:text="${membership.appid}"> </strong></p>
+    <p> Username: <strong th:text="${membership.username}"> </strong></p>
+    <p> Full Name: <strong th:text="${membership.fname} + ' ' + ${membership.sname+ ' ' +membership.lname}"> </strong></p>
+    <p> Department: <strong th:text="${membership.dept}"> </strong></p>
+    <p> Designation: <strong th:text="${membership.designation}"> </strong></p>
+    <p> Phone: <strong th:text="${membership.phone}"> </strong></p>
+    <p> Email: <strong th:text="${membership.email}"> </strong></p>
+    <p> Password: <strong th:text="${membership.password}"> </strong></p>
+</div>
+
+
+
+<footer th:insert="/staticfrags/footer">
+    <!-- Footer  has been imported -->
+</footer>
+
+</body>
+</html>
