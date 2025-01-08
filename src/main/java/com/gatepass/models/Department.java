@@ -1,4 +1,4 @@
-package com.gatepass.entities;
+package com.gatepass.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

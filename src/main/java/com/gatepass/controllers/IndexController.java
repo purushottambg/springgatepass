@@ -1,7 +1,7 @@
 package com.gatepass.controllers;
 
-import com.gatepass.entities.MembershipRequest;
-import com.gatepass.entities.TempData;
+import com.gatepass.models.MembershipRequest;
+import com.gatepass.models.TempData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
