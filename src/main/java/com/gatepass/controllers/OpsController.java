@@ -1,7 +1,6 @@
 package com.gatepass.controllers;
 
 import com.gatepass.models.MembershipRequest;
-import com.gatepass.models.TempData;
 import com.gatepass.service.MembershipRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,13 +22,6 @@ public class OpsController {
         membershipRequestService.saveRequest(membershipRequest);
         model.addAttribute("membershipRequest", membershipRequest);
         return "ops/saved-request";
-    }
-
-    @PostMapping("ops/tempdata")
-    public String saveTempData(Model model, @ModelAttribute("tempData") TempData tempData){            //Data entered by the user must be saved
-
-        model.addAttribute("tempData", tempData);
-        return "ops/tempdata";
     }
 
 }
