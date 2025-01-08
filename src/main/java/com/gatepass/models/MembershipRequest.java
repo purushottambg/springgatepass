@@ -19,7 +19,7 @@ public class MembershipRequest {
     @Column(nullable = false)
     private Long appid;
 
-    @Column(nullable = true, length = 20, unique = true, updatable = false)
+    @Column(nullable = true, length = 20, unique = false, updatable = false)
     private String username;
 
     @Column(nullable = false, length = 40)
