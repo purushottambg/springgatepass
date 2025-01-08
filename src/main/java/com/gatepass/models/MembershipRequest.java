@@ -1,4 +1,4 @@
-package com.gatepass.entities;
+package com.gatepass.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,9 +16,10 @@ import javax.persistence.*;
 public class MembershipRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Long appid;
 
-    @Column(nullable = false, length = 20, unique = true, updatable = false)
+    @Column(nullable = true, length = 20, unique = true, updatable = false)
     private String username;
 
     @Column(nullable = false, length = 40)
@@ -45,6 +46,6 @@ public class MembershipRequest {
     @Column(nullable = false, length = 20)
     private String password;
 
-    @Column(nullable = false, length = 20)
-    private String applicationstatus;
+
+
 }

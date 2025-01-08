@@ -1,10 +1,11 @@
 package com.gatepass.controllers;
 
-import com.gatepass.entities.MembershipRequest;
-import com.gatepass.entities.TempData;
+import com.gatepass.models.MembershipRequest;
+import com.gatepass.models.TempData;
+import com.gatepass.service.MembershipRequestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class OpsController {
 
+    @Autowired
+    private MembershipRequestService membershipRequestService;
+
     @PostMapping("ops/save-request")
     public String saveRequestData(Model model, @ModelAttribute("membershipRequest") MembershipRequest membershipRequest){            //Data entered by the user must be saved
+
+        membershipRequestService.saveRequest(membershipRequest);
         model.addAttribute("membershipRequest", membershipRequest);
         return "ops/saved-request";
     }

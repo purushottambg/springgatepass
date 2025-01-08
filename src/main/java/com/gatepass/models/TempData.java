@@ -1,4 +1,4 @@
-package com.gatepass.entities;
+package com.gatepass.models;
 
 public class TempData {
     private String name;
