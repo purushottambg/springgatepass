@@ -21,7 +21,8 @@ public class OpsController {
 
         membershipRequestService.saveRequest(membershipRequest);
         model.addAttribute("membershipRequest", membershipRequest);
-        return "ops/saved-request";
+        return "ops/saved-request";   //Redirect to the saved page
+
     }
 
 }
