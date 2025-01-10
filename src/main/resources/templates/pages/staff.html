@@ -4,11 +4,16 @@
   <meta charset="UTF-8">
   <title>Staff</title>
 </head>
-<body>
+<body th:object="${logInData}">
 
 <header th:insert="staticfrags/header">
 
 </header>
+
+<h3 th:text="${successLogIn}"></h3>
+
+<p> Welcome <strong th:text="*{userName}"></strong> </p>
+<p> Password <strong th:text="*{password}"></strong> </p>
 
 <footer th:include="staticfrags/footer">
 
