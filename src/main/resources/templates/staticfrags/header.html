@@ -27,7 +27,7 @@
       </div>
     </div>
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(173, 16, 16);font-size: larger;">
-    <a class="navbar-brand" href="#" >
+    <a class="navbar-brand" th:href="@{/index}" >
       Welcome
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,10 +36,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" th:href="@{/member-request}"><b>Request Membership</b></a>
+          <a class="nav-link" th:href="@{/pages/member-request}"><b>Request Membership</b></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" th:href="@{/member-request}"><b>Much more to add</b></a>
+          <a class="nav-link" th:href="@{/pages/member-request}"><b>Much more to add</b></a>
         </li>
       </ul>
     </div>

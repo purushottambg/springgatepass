@@ -1,7 +1,10 @@
 package com.gatepass.configs;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class MapperConfigs {
 
     // Model mapper is a library that can be used to map one object to another
@@ -9,6 +12,6 @@ public class MapperConfigs {
 
     @Bean
     public ModelMapper getModelMapper(){
-        return new ModelMapper;
+        return new ModelMapper();
     }
 }
