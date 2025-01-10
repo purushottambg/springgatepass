@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class ClearkController {
+public class ClerkController {
 
-    @GetMapping("pages/cleark")
-    public String clearkHome(){
-        return "pages/cleark";
+    @GetMapping("pages/clerk")
+    public String clerkHome(){
+        return "pages/clerk";
     }
 }
