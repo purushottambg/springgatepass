@@ -19,10 +19,10 @@ public class IndexController {
     public String indexPage(){
         return "index";
     }
-    @GetMapping("member-request")  //Page is designed to accept the data
+    @GetMapping("pages/member-request")  //Page is designed to accept the data
     public String memberRequest(Model model){
         MembershipRequest membershipRequest = new MembershipRequest();
         model.addAttribute("membershipRequest", membershipRequest);
-        return "member-request";
+        return "pages/member-request";
     }
 }
