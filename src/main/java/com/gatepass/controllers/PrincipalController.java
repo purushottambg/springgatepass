@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PrincipalController {
 
     @GetMapping("pages/principal")
-    public String hodHome(){
+    public String principalHome(){
         return "pages/principal";
+    }
+
+    @GetMapping("pages/principal-pass-report")
+    public String hodPassReport(){
+        return "pages/principal-pass-report";
     }
 }
