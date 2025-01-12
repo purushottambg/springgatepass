@@ -18,7 +18,7 @@ public class OpsController {
     @Autowired
     private MembershipRequestService membershipRequestService;
 
-    @PostMapping("ops/save-request")
+    @PostMapping("ops/save-request/{}")
     public String saveRequestData(Model model, @ModelAttribute("membershipRequest") MembershipRequest membershipRequest){            //Data entered by the user must be saved
 
         membershipRequestService.saveRequest(membershipRequest);
@@ -29,8 +29,12 @@ public class OpsController {
 
     @GetMapping("ops/validate-login")
     public String logInValidation(@ModelAttribute("logInData")LogInData logInData, Model model){
-        model.addAttribute("successLogIn","Successfully logged in as Staff");
-        model.addAttribute("logInData", logInData);
+//        model.addAttribute("successLogIn","Successfully logged in as Staff");
+//        model.addAttribute("logInData", logInData);
+        if(membershipRequestService.existByUserName(logInData.getUserName()))
+            model.addAttribute("response","Hi, "+logInData.getUserName()+" Welcome");
+        else
+            model.addAttribute("response","Did not find");
         return "pages/staff";
     }
 

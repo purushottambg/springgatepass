@@ -14,4 +14,8 @@ public class MembershipRequestService {
     public MembershipRequest saveRequest(MembershipRequest membershipRequest){
         return membershipRepo.save(membershipRequest);
     }
+
+    public boolean existByUserName(String userName) {
+        return membershipRepo.findByUsername(userName).isPresent();
+    }
 }
