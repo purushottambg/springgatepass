@@ -1,22 +1,21 @@
 package com.gatepass.models;
 
-import com.sun.istack.internal.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
-@Table(name = "membershiprequest", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"username", "phone", "email"}) })
-public class MembershipRequest {
+@Table(name = "staff",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"username", "phone", "email"}))
+public class StaffEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Long appid;
+    private Long staffid;
 
     @Column(nullable = false, length = 20, unique = true, updatable = false)
     private String username;
@@ -44,4 +43,5 @@ public class MembershipRequest {
 
     @Column(nullable = false, length = 20)
     private String password;
+
 }
