@@ -31,7 +31,7 @@ public class OpsController {
     public String logInValidation(@ModelAttribute("logInData")LogInData logInData, Model model){
         if(membershipRequestService.existByUserName(logInData.getUserName())) {
             model.addAttribute("response", "Hi, " + logInData.getUserName() + " Welcome");
-            return "pages/staff";
+            return "pages/staff";               //Redirection should be based on the user type
         }
         model.addAttribute("failureResponse","Did not find");
         return  "index";
