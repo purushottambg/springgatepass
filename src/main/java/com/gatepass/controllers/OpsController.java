@@ -33,7 +33,7 @@ public class OpsController {
             model.addAttribute("response", "Hi, " + logInData.getUserName() + " Welcome");
             return "pages/staff";
         }
-        model.addAttribute("response","Did not find");
+        model.addAttribute("failureResponse","Did not find");
         return  "index";
     }
 
