@@ -29,13 +29,12 @@ public class OpsController {
 
     @GetMapping("ops/validate-login")
     public String logInValidation(@ModelAttribute("logInData")LogInData logInData, Model model){
-//        model.addAttribute("successLogIn","Successfully logged in as Staff");
-//        model.addAttribute("logInData", logInData);
-        if(membershipRequestService.existByUserName(logInData.getUserName()))
-            model.addAttribute("response","Hi, "+logInData.getUserName()+" Welcome");
-        else
-            model.addAttribute("response","Did not find");
-        return "pages/staff";
+        if(membershipRequestService.existByUserName(logInData.getUserName())) {
+            model.addAttribute("response", "Hi, " + logInData.getUserName() + " Welcome");
+            return "pages/staff";
+        }
+        model.addAttribute("response","Did not find");
+        return  "index";
     }
 
 }
