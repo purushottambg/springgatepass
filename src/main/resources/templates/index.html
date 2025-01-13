@@ -15,7 +15,7 @@
     <div th:if="${failureResponse}" style="color: red;">
         <p th:text="${failureResponse}"></p>
     </div>
-    <form th:method="GET" th:action="@{/ops/validate-login}" th:object="${logInData}">
+    <form th:method="POST" th:action="@{/ops/validate-login}" th:object="${logInData}">
         <div class="form-group">
             <label >UserName</label>
             <input type="text" class="form-control" id="staff" name="username" placeholder="Username1234" th:field="*{userName}" required>

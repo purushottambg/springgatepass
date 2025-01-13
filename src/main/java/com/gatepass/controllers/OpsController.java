@@ -6,6 +6,7 @@ import com.gatepass.service.MembershipRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,16 +19,15 @@ public class OpsController {
     @Autowired
     private MembershipRequestService membershipRequestService;
 
-    @PostMapping("ops/save-request/{}")
-    public String saveRequestData(Model model, @ModelAttribute("membershipRequest") MembershipRequest membershipRequest){            //Data entered by the user must be saved
+    @PostMapping("ops/save-request")
+    public String saveRequestData(Model model,  @ModelAttribute("membershipRequest") MembershipRequest membershipRequest){            //Data entered by the user must be saved
 
         membershipRequestService.saveRequest(membershipRequest);
         model.addAttribute("membershipRequest", membershipRequest);
         return "ops/saved-request";   //Redirect to the saved page
-
     }
 
-    @GetMapping("ops/validate-login")
+    @PostMapping("ops/validate-login")
     public String logInValidation(@ModelAttribute("logInData")LogInData logInData, Model model){
         if(membershipRequestService.existByUserName(logInData.getUserName())) {
             model.addAttribute("response", "Hi, " + logInData.getUserName() + " Welcome");
