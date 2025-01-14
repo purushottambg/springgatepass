@@ -18,8 +18,13 @@
     <!-- Header has been imported and defined in static folder -->
 </header>
 
-<div class="container" style="padding: 8px;">
+<div th:if="${response}" style="color: red;">
+    <p th:text="${response}"></p>
+    <footer th:insert="/staticfrags/footer">
 
+    </footer>
+</div>
+<div class="container" style="padding: 8px;" th:unless="${response}">
     <div class="container">
         <h3>Fill all the fields correctly.</h3>
         <form role="form" th:method="post" th:action="@{/ops/save-request}" th:object="${membershipRequest}">

@@ -34,8 +34,8 @@ public class OpsController {
     @PostMapping("ops/validate-login")
     public String logInValidation(@ModelAttribute("logInData")LogInData logInData, Model model){
         if(membershipRequestService.existByUserName(logInData.getUserName())) {
-            model.addAttribute("response", "Hi, " + logInData.getUserName() + " Welcome");
-            return "pages/staff";               //Redirection should be based on the user type
+            model.addAttribute("response", "Hi, " + logInData.getUserName() + " your membership is not approved yet");
+            return "pages/member-request";               //Redirection should be based on the user type
         } else if (staffService.existByUserName(logInData.getUserName())) {
             model.addAttribute("response", "Hi, " + logInData.getUserName() + " Welcome");
             return "pages/staff";
