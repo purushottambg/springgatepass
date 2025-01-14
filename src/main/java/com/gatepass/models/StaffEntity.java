@@ -17,7 +17,7 @@ public class StaffEntity {
     @Column(nullable = false, updatable = false)
     private Long staffid;
 
-    @Column(nullable = false, length = 20, unique = true, updatable = false)
+    @Column(nullable = false, length = 40, unique = true, updatable = false)
     private String username;
 
     @Column(nullable = false, length = 40)
