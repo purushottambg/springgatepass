@@ -29,9 +29,6 @@ public class StaffEntity {
     @Column(nullable = false, length = 40)
     private String lname;
 
-    @Column(nullable = false)
-    private Long dept;
-
     @Column(nullable = false, length = 40)
     private String designation;
 
@@ -41,7 +38,11 @@ public class StaffEntity {
     @Column(nullable = false, length = 40)
     private String email;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "dptid", referencedColumnName = "dptid")
+    private Department department;
 
 }

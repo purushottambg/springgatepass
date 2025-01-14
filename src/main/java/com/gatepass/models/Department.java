@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -26,6 +27,9 @@ public class Department {
     private String address;
 
     @Column
-    private String dept_Description;
+    private String description;
+
+    @OneToMany(mappedBy = "staffid", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<StaffEntity> staffList;
 
 }
