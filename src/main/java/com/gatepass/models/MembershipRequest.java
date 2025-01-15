@@ -1,6 +1,5 @@
 package com.gatepass.models;
 
-import com.sun.istack.internal.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
