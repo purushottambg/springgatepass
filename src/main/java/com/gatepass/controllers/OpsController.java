@@ -22,14 +22,6 @@ public class OpsController {
     @Autowired
     private StaffService staffService;
 
-    @PostMapping("ops/save-request")
-    public String saveRequestData(Model model,  @ModelAttribute("membershipRequest") MembershipRequest membershipRequest){            //Data entered by the user must be saved
-
-        membershipRequestService.saveRequest(membershipRequest);
-        model.addAttribute("membershipRequest", membershipRequest);
-        return "ops/saved-request";   //Redirect to the saved page
-    }
-
     //We will be using this for the requested members only and not for the actual members
     @PostMapping("ops/validate-login")
     public String logInValidation(@ModelAttribute("logInData")LogInData logInData, Model model){
