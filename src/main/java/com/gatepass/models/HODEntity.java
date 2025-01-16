@@ -22,7 +22,7 @@ public class HODEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long hodid;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "username", nullable = false, unique = true)
     private String userName;
 
     private String fname;

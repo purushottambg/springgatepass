@@ -10,6 +10,13 @@
 
 </header>
 
+<h3> This is hod home</h3>
+<div th:if="${response}">
+    <div th:object="${response}">
+      <p> Hi <strong th:text="*{userName}"></strong></p> 
+    </div>
+</div>
+
 <footer th:include="staticfrags/footer">
 
 </footer>

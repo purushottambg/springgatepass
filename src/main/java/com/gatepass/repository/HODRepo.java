@@ -1,8 +1,10 @@
 package com.gatepass.repository;
 
-import org.springframework.stereotype.Repository;
+import com.gatepass.models.HODEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface HODRepo {
+import java.util.Optional;
 
+public interface HODRepo extends JpaRepository<HODEntity, Long> {
+    public Optional<HODEntity> findByuserName(String userName);
 }

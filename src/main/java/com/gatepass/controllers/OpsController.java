@@ -1,6 +1,7 @@
 package com.gatepass.controllers;
 
 import com.gatepass.models.LogInData;
+import com.gatepass.service.HODService;
 import com.gatepass.service.MembershipRequestService;
 import com.gatepass.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class OpsController {
     private MembershipRequestService membershipRequestService;
     @Autowired
     private StaffService staffService;
+    @Autowired
+    private HODService hodService;
+
 
     //We will be using this for the requested members only and not for the actual members
     @PostMapping("ops/validate-login")
@@ -28,11 +32,13 @@ public class OpsController {
         } else if (staffService.existByUserName(logInData.getUserName())) {
             model.addAttribute("response", "Hi, " + logInData.getUserName() + " Welcome");
             return "pages/staff";
-        } else if (true) {
-            
+        } else if (hodService.existByUserName(logInData.getUserName())) {
+            model.addAttribute("response",logInData);
+            return "pages/hod-home";
+        }else {
+            model.addAttribute("failureResponse", "Did not find");
+            return "index";
         }
-        model.addAttribute("failureResponse","Did not find");
-        return  "index";
     }
 
 }

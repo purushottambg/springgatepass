@@ -27,7 +27,7 @@
 <div class="container" style="padding: 8px;" th:unless="${response}">
     <div class="container">
         <h3>Fill all the fields correctly.</h3>
-        <form role="form" th:method="post" th:action="@{/ops/save-request}" th:object="${membershipRequest}">
+        <form role="form" th:method="post" th:action="@{/ops/save-request}" th:object="${membershipEntity}">
             <div class="form-group">
                 <label for="sname" required>User Name</label>
                 <input type="text" class="form-control" placeholder="username1234" name="username" id="username" pattern="[A-Za-z0-9]+" title="Try to enter your first name followed by last fout digits of your phone Number" th:field="*{username}" required readonly>
