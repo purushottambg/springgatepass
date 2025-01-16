@@ -32,4 +32,7 @@ public class Department {
     @OneToMany(mappedBy = "staffid", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StaffEntity> staffList;
 
+    @OneToMany(mappedBy = "hodid", cascade = CascadeType.ALL)
+    private List<HODEntity> hodList;
+
 }
