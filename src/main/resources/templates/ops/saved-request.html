@@ -15,7 +15,7 @@
 
 <h1> Here we can mention the data that has been reached till the page!!</h1>
 
-<div th:each="membership, index : ${membershipRequest}">
+<div th:each="membership, index : ${membershipEntity}">
     <h4> Hi <strong th:text="${membership.fname}"> </strong> , your application has been submitted successfully! <br/>
         Kindly refer <strong th:text="${membership.username}"></strong> as username and application id is <strong th:text="${membership.appid}"></strong>
     </h4>

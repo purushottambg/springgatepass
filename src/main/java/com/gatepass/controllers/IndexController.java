@@ -1,7 +1,7 @@
 package com.gatepass.controllers;
 
 import com.gatepass.models.LogInData;
-import com.gatepass.models.MembershipRequest;
+import com.gatepass.models.MembershipEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +24,8 @@ public class IndexController {
     }
     @GetMapping("pages/member-request")  //Page is designed to accept the data
     public String memberRequest(Model model){
-        MembershipRequest membershipRequest = new MembershipRequest();
-        model.addAttribute("membershipRequest", membershipRequest);
+        MembershipEntity membershipEntity = new MembershipEntity();
+        model.addAttribute("membershipEntity", membershipEntity);
         return "pages/member-request";
     }
 }
