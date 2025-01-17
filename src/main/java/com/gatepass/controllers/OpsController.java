@@ -1,6 +1,7 @@
 package com.gatepass.controllers;
 
 import com.gatepass.models.LogInData;
+import com.gatepass.service.ClerkService;
 import com.gatepass.service.HODService;
 import com.gatepass.service.MembershipRequestService;
 import com.gatepass.service.StaffService;
@@ -21,6 +22,8 @@ public class OpsController {
     private StaffService staffService;
     @Autowired
     private HODService hodService;
+    @Autowired
+    private ClerkService clerkService;
 
 
     //We will be using this for the requested members only and not for the actual members
@@ -35,7 +38,11 @@ public class OpsController {
         } else if (hodService.existByUserName(logInData.getUserName())) {
             model.addAttribute("response",logInData);
             return "pages/hod-home";
-        }else {
+        } else if (clerkService.existByUserName(logInData.getUserName())) {
+            model.addAttribute("response",logInData);
+            return "pages/clerk";
+        }
+        else {
             model.addAttribute("failureResponse", "Did not find");
             return "index";
         }
