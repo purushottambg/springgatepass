@@ -13,8 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-@Table(name = "department")
-public class Department {
+@Table(name = "departmentEntity")
+public class DepartmentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +34,8 @@ public class Department {
 
     @OneToMany(mappedBy = "hodid", cascade = CascadeType.ALL)
     private List<HODEntity> hodList;
+
+    @OneToMany(mappedBy = "clerkid", cascade = CascadeType.ALL)
+    private List<ClerkEntity> clearkList;
 
 }

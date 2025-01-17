@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.core.SpringVersion;
 
 import javax.persistence.*;
 
@@ -42,6 +41,6 @@ public class HODEntity {
 
     @ManyToOne()
     @JoinColumn(name = "dptid", nullable = false)
-    private Department department;
+    private DepartmentEntity departmentEntity;
 
 }

@@ -43,6 +43,6 @@ public class StaffEntity {
 
     @ManyToOne
     @JoinColumn(name = "dptid", referencedColumnName = "dptid")
-    private Department department;
+    private DepartmentEntity departmentEntity;
 
 }
