@@ -13,7 +13,7 @@ public class ClerkService {
     @Autowired
     private ClerkRepo clerkRepo;
 
-    public boolean existByUserName(String userName){
-        return clerkRepo.findByUsername(userName).isPresent();
+    public boolean existByUserName(String UserName){
+        return clerkRepo.findByUserName(UserName).isPresent();
     }
 }
