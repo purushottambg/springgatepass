@@ -29,13 +29,13 @@ public class DepartmentEntity {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "staffid", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "departmentEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StaffEntity> staffList;
 
-    @OneToMany(mappedBy = "hodid", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "departmentEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HODEntity> hodList;
 
-    @OneToMany(mappedBy = "clerkid", cascade = CascadeType.ALL)
-    private List<ClerkEntity> clearkList;
+    @OneToMany(mappedBy = "departmentEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ClerkEntity> clerkList;
 
 }

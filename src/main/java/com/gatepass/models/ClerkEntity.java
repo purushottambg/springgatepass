@@ -15,14 +15,15 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "clerk", uniqueConstraints = @UniqueConstraint(columnNames = {"clerkid", "UserName", "phone", "email"}))
+@Table(name = "clerk", uniqueConstraints = @UniqueConstraint(columnNames = {"clerkid", "username", "phone", "email"}))
 public class ClerkEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clerkid;
 
-    @Column(name = "UserName")
-    private String UserName;
+    @Column(name = "username")
+    private String userName;
 
     @Column(name = "fname")
     private String fname;
@@ -48,5 +49,4 @@ public class ClerkEntity {
     @ManyToOne
     @JoinColumn(name = "dptid", nullable = false)
     private DepartmentEntity departmentEntity;
-
 }
