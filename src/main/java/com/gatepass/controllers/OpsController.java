@@ -1,6 +1,6 @@
 package com.gatepass.controllers;
 
-import com.gatepass.models.LogInData;
+import com.gatepass.dtos.LoginDTO;
 import com.gatepass.service.ClerkService;
 import com.gatepass.service.HODService;
 import com.gatepass.service.MembershipRequestService;
@@ -8,6 +8,7 @@ import com.gatepass.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,21 +29,25 @@ public class OpsController {
 
     //We will be using this for the requested members only and not for the actual members
     @PostMapping("ops/validate-login")
-    public String logInValidation(@ModelAttribute("logInData")LogInData logInData, Model model){
-        if(membershipRequestService.existByUserName(logInData.getUserName())) {
-            model.addAttribute("response", "Hi, " + logInData.getUserName() + " your membership is not approved yet");
+    public String logInValidation(@ModelAttribute("loginDTO") LoginDTO loginDTO, Model model, BindingResult bindingResult){
+
+        model.addAttribute("failureResponse", loginDTO.getUserName());
+        if(membershipRequestService.existByUserName(loginDTO.getUserName())) {
+            model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " your membership is not approved yet");
             return "pages/member-request";               //Redirection should be based on the user type
-        } else if (staffService.existByUserName(logInData.getUserName())) {
-            model.addAttribute("response", "Hi, " + logInData.getUserName() + " Welcome");
+        } else if (staffService.existByUserName(loginDTO.getUserName())) {
+            model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " Welcome");
             return "pages/staff";
-        } else if (hodService.existByUserName(logInData.getUserName())) {
-            model.addAttribute("response",logInData);
+        } else if (hodService.existByUserName(loginDTO.getUserName())) {
+            model.addAttribute("response",loginDTO.getUserName());
             return "pages/hod-home";
-        } else if (clerkService.existByUserName(logInData.getUserName())) {
-            model.addAttribute("response",logInData);
+        } else if (clerkService.existByUserName(loginDTO.getUserName())) {
+            model.addAttribute("response",loginDTO.getUserName());
             return "pages/clerk";
-        }
-        else {
+        } else if (bindingResult.hasErrors()) {
+            model.addAttribute("failureResponse", bindingResult.toString());
+            return "index";
+        } else {
             model.addAttribute("failureResponse", "Did not find");
             return "index";
         }

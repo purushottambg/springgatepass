@@ -1,6 +1,7 @@
 package com.gatepass.controllers;
 
-import com.gatepass.models.LogInData;
+
+import com.gatepass.dtos.LoginDTO;
 import com.gatepass.models.MembershipEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,13 +14,13 @@ public class IndexController {
 
     @GetMapping("index")
     public String index(Model model){
-        model.addAttribute("logInData", new LogInData());
+        model.addAttribute("logInData", new LoginDTO());
         return "index";
     }
 
     @GetMapping("")
     public String indexPage(Model model){
-        model.addAttribute("logInData", new LogInData());
+        model.addAttribute("logInData", new LoginDTO());
         return "index";
     }
     @GetMapping("pages/member-request")  //Page is designed to accept the data
