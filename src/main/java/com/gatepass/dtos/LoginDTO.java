@@ -1,17 +1,15 @@
 package com.gatepass.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
+@Builder
 public class LoginDTO {
     private String fname;
     private String lname;
     private String phone;
     private String userName;
+    private String password;
 }

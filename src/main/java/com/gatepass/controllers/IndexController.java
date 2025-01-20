@@ -14,13 +14,13 @@ public class IndexController {
 
     @GetMapping("index")
     public String index(Model model){
-        model.addAttribute("logInData", new LoginDTO());
+        model.addAttribute("loginDTO", new LoginDTO());
         return "index";
     }
 
     @GetMapping("")
     public String indexPage(Model model){
-        model.addAttribute("logInData", new LoginDTO());
+        model.addAttribute("loginDTO", new LoginDTO());
         return "index";
     }
     @GetMapping("pages/member-request")  //Page is designed to accept the data
