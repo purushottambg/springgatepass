@@ -45,7 +45,7 @@ public class OpsController {
             model.addAttribute("response",loginDTO.getUserName());
             return "pages/clerk";
         } else if (bindingResult.hasErrors()) {
-            model.addAttribute("failureResponse", bindingResult.toString());
+            model.addAttribute("failureResponse", "it has some errors");
             return "index";
         } else {
             model.addAttribute("failureResponse", "Did not find");
