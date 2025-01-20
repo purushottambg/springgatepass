@@ -31,15 +31,16 @@ public class OpsController {
     @PostMapping("ops/validate-login")
     public String logInValidation(@ModelAttribute("loginDTO") LoginDTO loginDTO, Model model, BindingResult bindingResult){
 
-        model.addAttribute("failureResponse", loginDTO.getUserName());
         if(membershipRequestService.existByUserName(loginDTO.getUserName())) {
             model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " your membership is not approved yet");
             return "pages/member-request";               //Redirection should be based on the user type
         } else if (staffService.existByUserName(loginDTO.getUserName())) {
             model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " Welcome");
+            model.addAttribute("success", loginDTO);
             return "pages/staff";
         } else if (hodService.existByUserName(loginDTO.getUserName())) {
-            model.addAttribute("response",loginDTO.getUserName());
+            model.addAttribute("response","Hi, " + loginDTO.getUserName() + " Welcome");
+            model.addAttribute("success", loginDTO);
             return "pages/hod-home";
         } else if (clerkService.existByUserName(loginDTO.getUserName())) {
             model.addAttribute("response",loginDTO.getUserName());

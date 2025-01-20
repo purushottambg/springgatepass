@@ -27,10 +27,10 @@
       </div>
     </div>
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(173, 16, 16);font-size: larger;">
-    <a class="navbar-brand" th:href="@{/index}" th:if="${response}" th:text="'Welcome, ' + ${response.userName}">
+    <a class="navbar-brand" th:href="@{/index}" th:if="${success}" th:text="'Welcome, ' + ${success.userName}">
       Welcome
     </a>
-    <a class="navbar-brand" th:href="@{/index}" th:unless="${response}">
+    <a class="navbar-brand" th:href="@{/index}" th:unless="${success}">
       Welcome
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
