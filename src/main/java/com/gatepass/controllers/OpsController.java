@@ -43,7 +43,8 @@ public class OpsController {
             model.addAttribute("success", loginDTO);
             return "pages/hod-home";
         } else if (clerkService.existByUserName(loginDTO.getUserName())) {
-            model.addAttribute("response",loginDTO.getUserName());
+            model.addAttribute("response","Hi, " + loginDTO.getUserName() + " Welcome");
+            model.addAttribute("success", loginDTO);
             return "pages/clerk";
         } else if (bindingResult.hasErrors()) {
             model.addAttribute("failureResponse", "it has some errors");
