@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-@Table(name = "departmentEntity")
+@Table(name = "department", uniqueConstraints = @UniqueConstraint(columnNames = {"dptid"}))
 public class DepartmentEntity {
 
     @Id
