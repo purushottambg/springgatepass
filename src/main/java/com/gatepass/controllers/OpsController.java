@@ -1,10 +1,7 @@
 package com.gatepass.controllers;
 
 import com.gatepass.dtos.LoginDTO;
-import com.gatepass.service.ClerkService;
-import com.gatepass.service.HODService;
-import com.gatepass.service.MembershipRequestService;
-import com.gatepass.service.StaffService;
+import com.gatepass.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +22,8 @@ public class OpsController {
     private HODService hodService;
     @Autowired
     private ClerkService clerkService;
+    @Autowired
+    private PrincipalService principalService;
 
 
     //We will be using this for the requested members only and not for the actual members
@@ -46,6 +45,10 @@ public class OpsController {
             model.addAttribute("response","Hi, " + loginDTO.getUserName() + " Welcome");
             model.addAttribute("success", loginDTO);
             return "pages/clerk";
+        } else if (principalService.existByUserName(loginDTO.getUserName())) {
+            model.addAttribute("response","Hi, " + loginDTO.getUserName() + " Welcome");
+            model.addAttribute("success", loginDTO);
+            return "pages/principal";
         } else if (bindingResult.hasErrors()) {
             model.addAttribute("failureResponse", "it has some errors");
             return "index";
