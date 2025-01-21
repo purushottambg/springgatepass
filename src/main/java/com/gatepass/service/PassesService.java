@@ -1,4 +1,4 @@
 package com.gatepass.service;
 
-public class PassesRepo {
+public class PassesService {
 }

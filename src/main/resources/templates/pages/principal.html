@@ -10,6 +10,13 @@
 <!-- Header has been included-->
 </header>
 
+<h3> This is principal home</h3>
+<div th:if="${response}">
+  <div th:object="${response}">
+    <p> <strong th:text="${response}"></strong></p>
+  </div>
+</div>
+
 <footer th:include="staticfrags/footer">
   <!-- Footer has been included-->
 </footer>
