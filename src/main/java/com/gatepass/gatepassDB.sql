@@ -1,21 +1,33 @@
--- This data is for the gate pass application which might need to be used again till
--- the time project is in dev environment. Handle with Care!
-
-
 INSERT INTO `department` (`dptid`, `deptname`, `address`, `description`) VALUES
-(0, 'this is else block', NULL, NULL),
-(1, 'MCA Department', 'Main Building 3rd floor north wing', ''),
-(2, 'MBA Department', 'Main Building 3rd floor south wing', ''),
-(3, 'Computer Engineering', ' ', ''),
-(4, 'E&TC  Engineering', ' ', ''),
-(5, 'Electrics  Engineering', ' ', ''),
-(6, 'IT Engineering', ' ', ''),
-(7, 'Mechanical Engineering', ' ', ''),
-(8, 'FE Engineering', ' ', ''),
-(9, 'Library', ' ', ''),
-(10, 'Office Department', 'Main Building second floor', 'This is created for those who does not fall under any category');
+(1, 'MCA Department', 'Main Building 3rd floor South wing', 'Description NA'),
+(2, 'MBA Department', 'Main Building 3rd floor north wing', 'Description NA'),
+(3, 'Computer Engineering', 'Main Building 1st floor north wing', 'Description NA'),
+(4, 'E&TC  Engineering', 'Main Building 1st floor South wing', 'Description NA'),
+(5, 'Electrics  Engineering', 'Main Building 2nd floor north wing', 'Description NA'),
+(6, 'IT Engineering', 'Main Building 2nd floor South wing', 'Description NA'),
+(7, 'Mechanical Engineering', 'Main Building 4th floor north wing', 'Description NA'),
+(8, 'FE Engineering', 'Main Building 4th floor South wing', 'Description NA'),
+(9, 'Library', 'Librabry Section, besides Union Bank', 'Books and deposits managed'),
+(10, 'Office Department', 'Main Buiding second floor', 'This is created for those who does not fall under any category');
 
---Data for the staff
+INSERT INTO `clerk` (`clerkid`, `username`, `fname`, `sname`, `lname`, `designation`, `phone`, `email`, `password`, `dptid`) VALUES
+(0, 'OSCleark123', 'Office', '', 'Cleark', 'Cleark', '', '', '5f4dcc3b5aa765d61d8327deb882cf99', 10);
+
+INSERT INTO `hod` (`hodid`, `username`, `fname`, `sname`, `lname`, `designation`, `dptid`, `phone`, `email`, `password`) VALUES
+(1, 'Pradeep2844', 'Pradeep', 'Ananadrao', 'Patil', 'HOD', 7, '9765542844', 'paptil73@yahoo.co.in', '5f4dcc3b5aa765d61d8327deb882cf99'),
+(2, 'Manish2844', 'Manish', 'Subhash', 'Gardi', 'HOD', 8, '9890570405', 'manishgardi', '5f4dcc3b5aa765d61d8327deb882cf99'),
+(3, 'Shailesh5715', 'Shailesh', 'Madhukar', 'Hambarde', 'HOD', 4, '9730475715', 'shaileshhambarde@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99'),
+(4, 'Namdev6770', 'Namdev ', 'Ganpati', 'Padulkar', 'HOD', 5, '9890716770', 'padulkar_ng@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99'),
+(5, 'Chandrakant8849', 'Chandrakant', 'Dattatraya', 'Hake', 'HOD', 2, '7588078849', 'hakechandrakant@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99'),
+(6, 'Poonam3740', 'Poonam', 'Dayanand', 'Lambhate', 'HOD', 3, '9975563740', 'pinu_poonam@yahoo.co.in', '5f4dcc3b5aa765d61d8327deb882cf99'),
+(7, 'Swayam2906', 'Swayam', 'Shashank', 'Shah', 'HOD', 1, '9890792906', 'meet_swayam@yahoo.co.in', '5f4dcc3b5aa765d61d8327deb882cf99'),
+(8, 'Aruna3502', 'Aruna', 'Kailashnath', 'Gupta', 'HOD', 6, '9860953502', 'arunag7@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99'),
+(9, 'Jagannath1473', 'Jagannath', 'Rama', 'Gawade', 'OS', 10, '9112191473', 'jrgawade786@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99'),
+(10, 'Dnyaneshwar2223', 'Dnyaneshwar', 'Namdev', 'Kunjir', 'Librarian', 9, '9823842223', 'kunjirdn@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99');
+
+INSERT INTO `principal` (`prnid`, `username`, `fname`, `sname`, `lname`, `designation`, `phone`, `email`, `password`) VALUES
+(1, 'Rajendra8936', 'Rajendra', 'Devidas', 'Kanphade', 'Principal', '9657508936', 'kanphaderd2015@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99');
+
 
 INSERT INTO `staff` (`staffid`, `username`, `fname`, `sname`, `lname`, `dptid`, `designation`, `phone`, `email`, `password`) VALUES
 (51, 'Nidhi7793', 'Nidhi ', 'Deepak ', 'Sharma ', 8, 'AsstProfessor ', '9822517793 ', 'nidhi0927@gmail.com ', '5f4dcc3b5aa765d61d8327deb882cf99'),
@@ -186,3 +198,5 @@ INSERT INTO `staff` (`staffid`, `username`, `fname`, `sname`, `lname`, `dptid`, 
 (311, 'Sujata7284', 'Sujata', 'Patil', 'Ramrao', 1, 'AsstProfessor', '7387557284', 'sujata59@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99'),
 (312, 'Eknath1414', 'Eknath', 'Aitavade', 'Nivrutti', 7, 'AsstProfessor', '8208801414', 'enaait@yahoo.co.in', '5f4dcc3b5aa765d61d8327deb882cf99'),
 (318, 'Pranav0294', 'Pranav', 'Chandrakant', 'Pathare', 1, 'Asstprofessor ', '9511740294', 'pranav@mail.com', '26526131322dc0cb4d45116b57fb3303');
+
+commit;
