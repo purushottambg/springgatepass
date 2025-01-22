@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @Builder
 @Table(name = "department", uniqueConstraints = @UniqueConstraint(columnNames = {"dptid"}))
-public class DepartmentEntity {
+public class DepartmentEntity extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
