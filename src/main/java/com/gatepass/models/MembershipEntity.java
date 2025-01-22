@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Builder
 @Table(name = "membershiprequest", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"username", "phone", "email"}) })
-public class MembershipEntity {
+public class MembershipEntity  extends AuditableEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
