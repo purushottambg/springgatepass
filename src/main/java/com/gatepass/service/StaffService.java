@@ -1,19 +1,26 @@
 package com.gatepass.service;
 
-import com.gatepass.models.StaffEntity;
 import com.gatepass.repository.StaffRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
-public class StaffService {
+@RequiredArgsConstructor
+public class StaffService implements UserDetailsService {
 
-    @Autowired
-    private StaffRepo staffRepo;
+    private final StaffRepo staffRepo;
 
     public Boolean existByUserName(String userName){
         return staffRepo.findByUsername(userName).isPresent();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return staffRepo.findByUsername(username)
+                .orElseThrow(()-> new UsernameNotFoundException("No user with "+username+" found in the database!"));
     }
 }

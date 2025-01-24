@@ -1,6 +1,6 @@
 package com.gatepass.auth;
 
- import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.EntityListeners;
