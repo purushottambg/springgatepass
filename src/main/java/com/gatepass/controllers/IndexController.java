@@ -23,10 +23,5 @@ public class IndexController {
         model.addAttribute("loginDTO", new LoginDTO());
         return "index";
     }
-    @GetMapping("pages/member-request")  //Page is designed to accept the data
-    public String memberRequest(Model model){
-        MembershipEntity membershipEntity = new MembershipEntity();
-        model.addAttribute("membershipEntity", membershipEntity);
-        return "pages/member-request";
-    }
+
 }
