@@ -1,7 +1,9 @@
 package com.gatepass.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -13,6 +15,8 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "staff",
         uniqueConstraints = @UniqueConstraint(columnNames = {"username", "phone", "email"}))
 public class StaffEntity  implements UserDetails {

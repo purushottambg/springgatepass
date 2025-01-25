@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -29,8 +30,8 @@ public class SecurityConfig {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/index", "/pages/member-request").permitAll()
                 .antMatchers("/staticfrags/footer.html", "/staticfrags/header.html").permitAll()
-                .antMatchers( "/staticfrags/mediafiles/JSCOE_logo.png").permitAll()
-                .anyRequest().authenticated());
+                .antMatchers( "/mediafiles/JSCOE_logo.png").permitAll()
+                .anyRequest().permitAll());
 
         httpSecurity
                 .formLogin(form -> form
@@ -44,17 +45,17 @@ public class SecurityConfig {
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance(); // No password encoding
+           return new BCryptPasswordEncoder();
     }
 
     //Create your own test user details for testing purpose only
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.builder()
-                .username("user")
-                .password("{noop}pass") // {noop} indicates no password encoding
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails user = User.builder()
+//                .username("user")
+//                .password("{noop}pass") // {noop} indicates no password encoding
+//                .roles("USER")
+//                .build();
+//        return new InMemoryUserDetailsManager(user);
+//    }
 }
