@@ -5,6 +5,7 @@ import com.gatepass.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +33,9 @@ public class OpsController {
     @PostMapping("ops/validate-login")
     public String logInValidation(@ModelAttribute("loginDTO") LoginDTO loginDTO, Model model, BindingResult bindingResult){
 
-        if(membershipRequestService.existByUserName(loginDTO.getUserName())) {
+        if(membershipRequestService.existByUserName(loginDTO.getUserName() )) {
+            String token = membershipRequestService.generateToken(loginDTO.getUserName(), loginDTO.getPassword());
+            logger.trace("your token: {}"+token);
             model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " your membership is not approved yet");
             logger.info("Found user into the membership requested");
             logger.debug("This should be redirected to the members");
