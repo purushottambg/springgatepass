@@ -1,12 +1,8 @@
 package com.gatepass.service;
 
-import com.gatepass.models.ClerkEntity;
 import com.gatepass.repository.ClerkRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Repository
 public class ClerkService {
@@ -15,5 +11,8 @@ public class ClerkService {
 
     public boolean existByUserName(String UserName){
         return clerkRepo.findByUserName(UserName).isPresent();
+    }
+
+    public static class LoginAuthService {
     }
 }
