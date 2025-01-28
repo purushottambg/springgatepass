@@ -5,7 +5,6 @@ import com.gatepass.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +26,8 @@ public class OpsController {
     private ClerkService clerkService;
     @Autowired
     private PrincipalService principalService;
+    @Autowired
+    private LoginAuthService loginAuthService;
 
 
     //We will be using this for the requested members only and not for the actual members
@@ -34,7 +35,7 @@ public class OpsController {
     public String logInValidation(@ModelAttribute("loginDTO") LoginDTO loginDTO, Model model, BindingResult bindingResult){
 
         if(membershipRequestService.existByUserName(loginDTO.getUserName() )) {
-            String token = membershipRequestService.generateToken(loginDTO.getUserName(), loginDTO.getPassword());
+            String token = loginAuthService.generateToken(loginDTO.getUserName(), loginDTO.getPassword());
             logger.trace("your token: {}"+token);
             model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " your membership is not approved yet");
             logger.info("Found user into the membership requested");
@@ -46,7 +47,7 @@ public class OpsController {
         } else if (staffService.existByUserName(loginDTO.getUserName())) {
             model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " Welcome");
             model.addAttribute("success", loginDTO);
-            logger.info("user found in the staff records");
+            logger.info("user {} found in the staff records", loginDTO.getUserName());
             return "pages/staff";
         } else if (hodService.existByUserName(loginDTO.getUserName())) {
             model.addAttribute("response","Hi, " + loginDTO.getUserName() + " Welcome");

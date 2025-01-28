@@ -21,8 +21,7 @@ public class MembershipRequestService implements UserDetailsService {
 
     private final MembershipRepo membershipRepo;
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
-    private final JWTService jwtService;
+
 
     private final Logger logger = LoggerFactory.getLogger(MembershipRequestService.class);
 
@@ -50,20 +49,8 @@ public class MembershipRequestService implements UserDetailsService {
      */
     public boolean existByUserName(String userName) {
         boolean exists = membershipRepo.findByUsername(userName).isPresent();
-        logger.info("User exists check for '{}': {}", userName, exists);
+        logger.info("User '{}' exists return status is: {}", userName, exists);
         return exists;
-    }
-
-    /**
-     * Generate a JWT token for an authenticated user.
-     */
-    public String generateToken(String userName, String password) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userName, password));
-        logger.debug("Authentication successful for user: {}", authentication.getName());
-
-        MembershipEntity membershipEntity = (MembershipEntity) authentication.getPrincipal();
-        return jwtService.generateToken(membershipEntity);
     }
 
     /**

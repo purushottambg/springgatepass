@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig{
     private final String memberRequestPath="/pages/member-request";
     @Bean
-    SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception{
+    public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception{
 
         httpSecurity.authorizeHttpRequests(auth -> auth
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
@@ -28,19 +28,12 @@ public class SecurityConfig{
                 .csrf().disable()
                 .logout(LogoutConfigurer::permitAll);
 
-//        httpSecurity
-//                .formLogin(form -> form
-//                        .loginPage("/index") // Specify custom login page if any
-//                        .defaultSuccessUrl("/index", true) // Redirect on successful login
-//                        .permitAll());
-
-
         return httpSecurity.build();
 
     }
 
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception{
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception{
         return authConfig.getAuthenticationManager();
     }
 

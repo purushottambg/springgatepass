@@ -7,7 +7,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -33,12 +32,11 @@ public class JWTService {
                 .compact();
     }
 
-    public String generateToken(MembershipEntity membershipEntity){
+    public String generateToken(String username){
         return Jwts.builder()
-                .setSubject(membershipEntity.getUsername())
-                .claim("email", membershipEntity.getEmail())
+                .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((System.currentTimeMillis()+1000*60)))
+                .setExpiration(new Date(System.currentTimeMillis()+1000*60*5))
                 .signWith(getSecretKey())
                 .compact();
     }
