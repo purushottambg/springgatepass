@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,9 +16,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
+
 @RequiredArgsConstructor
 @Service
-public class MembershipRequestService implements UserDetailsService {
+public class MembershipRequestService{
 
     private final MembershipRepo membershipRepo;
     private final PasswordEncoder passwordEncoder;
@@ -30,7 +34,6 @@ public class MembershipRequestService implements UserDetailsService {
      * Generates a username from the user's first name and phone number and encode the password.
      */
     public MembershipEntity saveRequest(MembershipEntity membershipEntity) {
-        validateMembershipRequest(membershipEntity);
 
         String firstName = membershipEntity.getFname().toLowerCase();
         String phone = membershipEntity.getPhone();
@@ -53,36 +56,6 @@ public class MembershipRequestService implements UserDetailsService {
         return exists;
     }
 
-    /**
-     * Load user details for Spring Security.
-     */
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        MembershipEntity membershipEntity = membershipRepo.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
-
-        logger.info("Loaded user: {}", membershipEntity.getUsername());
-        return User.builder()
-                .username(membershipEntity.getUsername())
-                .password(membershipEntity.getPassword())
-                .roles(formatRoles(membershipEntity.getDesignation()))
-                .build();
-    }
-
-    /**
-     * Validate membership request input.
-     */
-    private void validateMembershipRequest(MembershipEntity membershipEntity) {
-        if (membershipEntity.getFname() == null || membershipEntity.getFname().isEmpty()) {
-            throw new IllegalArgumentException("First name cannot be null or empty");
-        }
-        if (membershipEntity.getPhone() == null || membershipEntity.getPhone().length() < 4) {
-            throw new IllegalArgumentException("Invalid phone number");
-        }
-        if (membershipEntity.getPassword() == null || membershipEntity.getPassword().isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be null or empty");
-        }
-    }
 
     /**
      * Format roles to include the `ROLE_` prefix if not already present.

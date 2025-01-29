@@ -3,6 +3,8 @@ package com.gatepass.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Entity
 @AllArgsConstructor
@@ -11,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @Table(name = "membershiprequest", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"username", "phone", "email"}) })
-public class MembershipEntity  extends AuditableEntity{
+public class MembershipEntity  extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -43,4 +45,5 @@ public class MembershipEntity  extends AuditableEntity{
 
     @Column(nullable = false)
     private String password;
+
 }
