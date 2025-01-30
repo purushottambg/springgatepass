@@ -1,10 +1,12 @@
 package com.gatepass.models;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.Collections;
 
 @Entity
 @AllArgsConstructor
@@ -13,7 +15,8 @@ import java.util.stream.Collectors;
 @Builder
 @Table(name = "membershiprequest", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"username", "phone", "email"}) })
-public class MembershipEntity  extends AuditableEntity {
+public class MembershipEntity  extends AuditableEntity  implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -46,4 +49,29 @@ public class MembershipEntity  extends AuditableEntity {
     @Column(nullable = false)
     private String password;
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }

@@ -1,7 +1,6 @@
 package com.gatepass;
 
-import com.gatepass.models.DepartmentEntity;
-import com.gatepass.models.StaffEntity;
+import com.gatepass.models.MembershipEntity;
 import com.gatepass.service.JWTService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +12,12 @@ class GatepassApplicationTests {
 	@Autowired
 	private JWTService jwtService;
 	@Test
-	void contextLoads() {
-		StaffEntity staffEntity = new StaffEntity(Long.valueOf(2434),"puru123","puru","bharat","gutthe",
-				"businessman","8734765623","prur@gmai.com","pass", DepartmentEntity.builder()
-						.dptid(Long.valueOf(1))
-								.address("NA")
-										.description("ds").build());
-		String generatedToken = jwtService.generateToken(staffEntity);
+	void contextLoads() throws Exception{
+		MembershipEntity membershipEntity = new MembershipEntity(Long.valueOf(2434),"puru123","puru","bharat","gutthe",
+				Long.valueOf(1),"AsstProfessor","7743623432","Purushottam@gmail.com","Pass");
+		String generatedToken = jwtService.generateToken(membershipEntity);
+		String usernameInToken = jwtService.getUsernameFromToken(generatedToken);
+		System.out.println("Token has user: "+generatedToken);
 		System.out.println("generated Token is: "+generatedToken);
 	}
 

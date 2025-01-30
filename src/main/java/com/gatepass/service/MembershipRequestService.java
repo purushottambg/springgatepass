@@ -1,5 +1,6 @@
 package com.gatepass.service;
 
+import com.gatepass.exceptions.ResourceNotFoundException;
 import com.gatepass.models.MembershipEntity;
 import com.gatepass.repository.MembershipRepo;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,11 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class MembershipRequestService{
+public class MembershipRequestService implements UserDetailsService{
 
     private final MembershipRepo membershipRepo;
     private final PasswordEncoder passwordEncoder;
@@ -38,6 +40,7 @@ public class MembershipRequestService{
         String firstName = membershipEntity.getFname().toLowerCase();
         String phone = membershipEntity.getPhone();
         String userName = firstName + phone.substring(phone.length() - 4);
+        membershipEntity.setUsername(membershipEntity.getFname());
         logger.info("Generated username: {}", userName);
 
         membershipEntity.setUsername(userName);
@@ -63,4 +66,14 @@ public class MembershipRequestService{
     private String[] formatRoles(String roles) {
         return roles.startsWith("ROLE_") ? new String[]{roles} : new String[]{"ROLE_" + roles};
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return membershipRepo.findByUsername(username).orElseThrow(()-> new ResourceNotFoundException("User with "+username+" does not exist!"));
+    }
+
+    public Optional<MembershipEntity> findByID(Long appid) {
+        return membershipRepo.findById(appid);
+    }
 }
+

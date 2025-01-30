@@ -27,6 +27,16 @@ public class JWTService {
                 .setSubject(staffEntity.getUsername())
                 .claim("email", staffEntity.getEmail())
                 .setIssuedAt(new Date())
+                .setExpiration(new Date((System.currentTimeMillis()+1000*60*3)))
+                .signWith(getSecretKey())
+                .compact();
+    }
+
+    public String generateToken(MembershipEntity membershipEntity){
+        return Jwts.builder()
+                .setSubject(membershipEntity.getUsername())
+                .claim("email", membershipEntity.getEmail())
+                .setIssuedAt(new Date())
                 .setExpiration(new Date((System.currentTimeMillis()+1000*60)))
                 .signWith(getSecretKey())
                 .compact();
@@ -41,13 +51,12 @@ public class JWTService {
                 .compact();
     }
 
-    public String getUsernameFromToken(String Token){
+    public String getUsernameFromToken(String Token) throws Exception{
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getSecretKey())
                 .build()
                 .parseClaimsJws(Token)
                 .getBody();
-
         return String.valueOf(claims.getSubject());
     }
 }

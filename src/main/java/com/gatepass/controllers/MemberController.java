@@ -1,5 +1,6 @@
 package com.gatepass.controllers;
 
+import com.gatepass.exceptions.ResourceNotFoundException;
 import com.gatepass.models.MembershipEntity;
 import com.gatepass.service.MembershipRequestService;
 import org.slf4j.Logger;
@@ -32,9 +33,11 @@ public class MemberController {
     public String saveRequestData(Model model, @ModelAttribute("membershipEntity") MembershipEntity membershipEntity){            //Data entered by the user must be saved
 
         logger.info("member sent for saving to the Service");
-        membershipRequestService.saveRequest(membershipEntity);
+        MembershipEntity toBeSavedEntity = membershipRequestService.saveRequest(membershipEntity);
 
-        model.addAttribute("membershipEntity", membershipEntity);
+        MembershipEntity savedEntity = membershipRequestService.findByID(toBeSavedEntity.getAppid()).orElseThrow(()-> new ResourceNotFoundException("Appid do not exit"));
+
+        model.addAttribute("membershipEntity", savedEntity);
 
         return "ops/saved-request";   //Redirect to the saved page
     }
