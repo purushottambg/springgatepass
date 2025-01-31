@@ -1,5 +1,6 @@
 package com.gatepass.service;
 
+import com.gatepass.models.AuditableEntity;
 import com.gatepass.models.MembershipEntity;
 import com.gatepass.models.StaffEntity;
 import io.jsonwebtoken.Claims;
