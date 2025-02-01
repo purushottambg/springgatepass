@@ -6,11 +6,11 @@ import com.gatepass.service.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class OpsController {
@@ -28,7 +28,7 @@ public class OpsController {
             model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " your membership is not approved yet");
             logger.info("Found user into the membership requested");
 
-            return "redirect:pages/member-request";               //Redirection should be based on the user type
+            return "pages/member-request";               //Redirection should be based on the user type
         } else if (staffService.existByUserName(loginDTO.getUserName())) {
             model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " Welcome");
             model.addAttribute("success", loginDTO);
