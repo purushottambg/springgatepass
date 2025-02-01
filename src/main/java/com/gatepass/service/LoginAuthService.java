@@ -1,24 +1,30 @@
 package com.gatepass.service;
 
 import com.gatepass.dtos.LoginDTO;
-import com.gatepass.models.MembershipEntity;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 
 
 @Service
-@RequiredArgsConstructor
 public class LoginAuthService {
 
     private final AuthenticationManager authenticationManager;
     private final JWTService jwtService;
     private final Logger logger = LoggerFactory.getLogger(LoginAuthService.class);
+    private final UserDetailsService userDetailsService;
+
+    public LoginAuthService(AuthenticationManager authenticationManager, JWTService jwtService, UserDetailsService userDetailsService){
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
+        this.userDetailsService = userDetailsService;
+    }
+
 
     /**
      * Generate a JWT token for an authenticated user.
@@ -26,13 +32,14 @@ public class LoginAuthService {
 
     public String logIn(LoginDTO loginDTO){
         logger.info("First line in login auth");
-//         Authentication authentication = authenticationManager.authenticate(
-//                 new UsernamePasswordAuthenticationToken(loginDTO.getUserName(), loginDTO.getPassword())
-//         );
-         logger.info("After return of the authentication object:");
+        authenticationManager.authenticate(
+                 new UsernamePasswordAuthenticationToken(loginDTO.getUserName(), loginDTO.getPassword())
+        );
+        logger.info("After return of the authentication object:");
+        UserDetails userDetails = userDetailsService.loadUserByUsername(loginDTO.getUserName());
 //         MembershipEntity membershipEntity = (MembershipEntity) authentication.getPrincipal();
-         logger.info("Generated Token is {}", jwtService.generateToken("membershipEntity"));
-         return jwtService.generateToken("pallavi9794");
+        logger.info("Generated Token is {}", jwtService.generateToken("membershipEntity"));
+        return jwtService.generateToken(userDetails);
     }
 
 //    public String generateToken(String userName, String password) {
