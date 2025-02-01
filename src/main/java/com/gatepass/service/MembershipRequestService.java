@@ -3,38 +3,35 @@ package com.gatepass.service;
 import com.gatepass.exceptions.ResourceNotFoundException;
 import com.gatepass.models.MembershipEntity;
 import com.gatepass.repository.MembershipRepo;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotNull;
-import java.util.Collection;
+
 import java.util.Optional;
-
-@RequiredArgsConstructor
+@Primary
 @Service
 public class MembershipRequestService implements UserDetailsService{
 
     private final MembershipRepo membershipRepo;
     private final PasswordEncoder passwordEncoder;
-
-
     private final Logger logger = LoggerFactory.getLogger(MembershipRequestService.class);
 
+    public MembershipRequestService(MembershipRepo membershipRepo, PasswordEncoder passwordEncoder) {
+        this.membershipRepo = membershipRepo;
+        this.passwordEncoder=passwordEncoder;
+    }
     /**
      * Save a membership request.
      * Generates a username from the user's first name and phone number and encode the password.
      */
+    @Transactional
     public MembershipEntity saveRequest(MembershipEntity membershipEntity) {
 
         String firstName = membershipEntity.getFname().toLowerCase();
@@ -50,23 +47,6 @@ public class MembershipRequestService implements UserDetailsService{
         return membershipRepo.save(membershipEntity);
     }
 
-    /**
-     * Check if a user exists by username.
-     */
-    public boolean existByUserName(String userName) {
-        boolean exists = membershipRepo.findByUsername(userName).isPresent();
-        logger.info("User '{}' exists return status is: {}", userName, exists);
-        return exists;
-    }
-
-
-    /**
-     * Format roles to include the `ROLE_` prefix if not already present.
-     */
-    private String[] formatRoles(String roles) {
-        return roles.startsWith("ROLE_") ? new String[]{roles} : new String[]{"ROLE_" + roles};
-    }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return membershipRepo.findByUsername(username).orElseThrow(()-> new ResourceNotFoundException("User with "+username+" does not exist!"));
@@ -74,6 +54,11 @@ public class MembershipRequestService implements UserDetailsService{
 
     public Optional<MembershipEntity> findByID(Long appid) {
         return membershipRepo.findById(appid);
+    }
+
+    public boolean existByUserName(String userName) {
+        logger.info("Checking if {} present in membership requested ppl", userName);
+        return membershipRepo.findByUsername(userName).isPresent();
     }
 }
 
