@@ -2,7 +2,6 @@ package com.gatepass.controllers;
 
 
 import com.gatepass.dtos.LoginDTO;
-import com.gatepass.models.MembershipEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
