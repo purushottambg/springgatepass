@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
   <title>Staff</title>
 </head>
 <body th:object="${loginDTO}">
@@ -14,11 +15,61 @@
 
 <h5 th:text="${response}"></h5>
 
-<p> Welcome <strong th:text="*{userName}"></strong> </p>
-<p> Password <strong th:text="*{password}"></strong> </p>
+<div class="form-container">
+  <form id="gatePassForm">
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" readonly>
 
-<footer th:include="staticfrags/footer">
+    <label for="in-time">In Time:</label>
+    <input type="time" id="in-time" name="in-time" required>
 
-</footer>
+    <label for="out-time">Out Time:</label>
+    <input type="time" id="out-time" name="out-time" required>
+
+    <label for="reason">Reason:</label>
+    <select id="reason" name="reason" required>
+      <option value="">Select Reason</option>
+      <option value="official">Official</option>
+      <option value="personal">Personal</option>
+    </select>
+
+    <label for="sub-reason">Sub Reason:</label>
+    <select id="sub-reason" name="sub-reason" required>
+      <option value="">Select Sub Reason</option>
+    </select>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="4" required></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+  document.getElementById('date').valueAsDate = new Date();
+
+  const subReasonMap = {
+      official: ["Meeting", "Inspection", "Field Work"],
+      personal: ["Medical", "Family Emergency", "Other"]
+  };
+
+  document.getElementById('reason').addEventListener('change', function() {
+      const subReasonSelect = document.getElementById('sub-reason');
+      subReasonSelect.innerHTML = '<option value="">Select Sub Reason</option>';
+
+      if (this.value in subReasonMap) {
+          subReasonMap[this.value].forEach(subReason => {
+              const option = document.createElement('option');
+              option.value = subReason.toLowerCase().replace(/ /g, "_");
+              option.textContent = subReason;
+              subReasonSelect.appendChild(option);
+          });
+      }
+  });
+</script>
+
+<!--<footer th:include="staticfrags/footer">-->
+
+<!--</footer>-->
 </body>
 </html>
