@@ -7,8 +7,10 @@ import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -49,6 +51,9 @@ public class StaffEntity  implements UserDetails {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "staffEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PassEntity> passes = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "dptid", referencedColumnName = "dptid")
