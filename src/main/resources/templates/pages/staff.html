@@ -66,35 +66,37 @@
       </div>
     </form>
     <script>
-      document.getElementById('date').valueAsDate = new Date();
+      const today = new Date();
+      const formattedDate = today.toISOString().split('T')[0];
+      document.getElementById('date').value = formattedDate;
 
-      const subReasonMap = {
-          official: ["Meeting", "Inspection", "Field Work"],
-          personal: ["Medical", "Family Emergency", "Other"]
-      };
+       const subReasonMap = {
+           official: ["Meeting", "Inspection", "Field Work"],
+           personal: ["Medical", "Family Emergency", "Other"]
+       };
 
-      document.getElementById('reason').addEventListener('change', function() {
-          const subReasonSelect = document.getElementById('sub-reason');
-          subReasonSelect.innerHTML = '<option value="">Select Sub Reason</option>';
+       document.getElementById('reason').addEventListener('change', function() {
+           const subReasonSelect = document.getElementById('sub-reason');
+           subReasonSelect.innerHTML = '<option value="">Select Sub Reason</option>';
 
-          if (this.value in subReasonMap) {
-              subReasonMap[this.value].forEach(subReason => {
-                  const option = document.createElement('option');
-                  option.value = subReason.toLowerCase().replace(/ /g, "_");
-                  option.textContent = subReason;
-                  subReasonSelect.appendChild(option);
-              });
-          }
-      });
+           if (this.value in subReasonMap) {
+               subReasonMap[this.value].forEach(subReason => {
+                   const option = document.createElement('option');
+                   option.value = subReason.toLowerCase().replace(/ /g, "_");
+                   option.textContent = subReason;
+                   subReasonSelect.appendChild(option);
+               });
+           }
+       });
 
-      document.getElementById('gatePassForm').addEventListener('submit', function(event) {
-          const inTime = document.getElementById('in-time').value;
-          const outTime = document.getElementById('out-time').value;
-          if (outTime && inTime && outTime >= inTime) {
-              alert('In Time must be greater than Out Time');
-              event.preventDefault();
-          }
-      });
+       document.getElementById('gatePassForm').addEventListener('submit', function(event) {
+           const inTime = document.getElementById('in-time').value;
+           const outTime = document.getElementById('out-time').value;
+           if (outTime && inTime && outTime >= inTime) {
+               alert('In Time must be greater than Out Time');
+               event.preventDefault();
+           }
+       });
     </script>
   </div>
 </div>

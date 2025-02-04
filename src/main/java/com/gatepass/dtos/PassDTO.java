@@ -13,9 +13,9 @@ import java.sql.Date;
 @Setter
 public class PassDTO {
 
-    private Date outtime;
+    private String outtime;
 
-    private Date intime;
+    private String intime;
 
     private String reason;
 

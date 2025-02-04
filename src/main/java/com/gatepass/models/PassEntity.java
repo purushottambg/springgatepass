@@ -16,9 +16,9 @@ public class PassEntity extends AuditableEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long passid;
 
-    private Date outtime;
+    private String outtime;
 
-    private Date intime;
+    private String intime;
 
     private String reason;
 
