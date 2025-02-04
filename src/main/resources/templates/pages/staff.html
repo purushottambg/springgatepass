@@ -16,56 +16,88 @@
 <h5 th:text="${response}"></h5>
 
 <div class="form-container">
-  <form id="gatePassForm">
-    <label for="date">Date:</label>
-    <input type="date" id="date" name="date" readonly>
+  <div class="form-container">
+    <form id="gatePassForm" th:action="@{/ops/save-pass}" th:object="${passDTO}" method="post">
+      <div class="form-row">
+         <h3>Kindly fill the below details!</h3>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date"  readonly>
+        </div>
+        <div class="form-group">
+          <label for="out-time">Out Time:</label>
+          <input type="time" id="out-time" name="out-time" th:field="*{outtime}" required>
+        </div>
+      </div>
 
-    <label for="in-time">In Time:</label>
-    <input type="time" id="in-time" name="in-time" required>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="in-time">In Time:</label>
+          <input type="time" id="in-time" name="in-time" th:field="*{intime}" required>
+        </div>
+        <div class="form-group">
+          <label for="reason">Reason:</label>
+          <select id="reason" name="reason" th:field="*{reason}" required>
+            <option value="">Select Reason</option>
+            <option value="official">Official</option>
+            <option value="personal">Personal</option>
+          </select>
+        </div>
+      </div>
 
-    <label for="out-time">Out Time:</label>
-    <input type="time" id="out-time" name="out-time" required>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="sub-reason">Sub Reason:</label>
+          <select id="sub-reason" name="sub-reason" th:field="*{subreason}" required>
+            <option value="">Select Sub Reason</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" rows="4" th:field="*{description}" required></textarea>
+        </div>
+      </div>
 
-    <label for="reason">Reason:</label>
-    <select id="reason" name="reason" required>
-      <option value="">Select Reason</option>
-      <option value="official">Official</option>
-      <option value="personal">Personal</option>
-    </select>
+      <div class="form-buttons">
+        <button type="submit">Submit Pass</button>
+        <button type="reset">Reset Form</button>
+      </div>
+    </form>
+    <script>
+      document.getElementById('date').valueAsDate = new Date();
 
-    <label for="sub-reason">Sub Reason:</label>
-    <select id="sub-reason" name="sub-reason" required>
-      <option value="">Select Sub Reason</option>
-    </select>
+      const subReasonMap = {
+          official: ["Meeting", "Inspection", "Field Work"],
+          personal: ["Medical", "Family Emergency", "Other"]
+      };
 
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" rows="4" required></textarea>
+      document.getElementById('reason').addEventListener('change', function() {
+          const subReasonSelect = document.getElementById('sub-reason');
+          subReasonSelect.innerHTML = '<option value="">Select Sub Reason</option>';
 
-    <button type="submit">Submit</button>
-  </form>
+          if (this.value in subReasonMap) {
+              subReasonMap[this.value].forEach(subReason => {
+                  const option = document.createElement('option');
+                  option.value = subReason.toLowerCase().replace(/ /g, "_");
+                  option.textContent = subReason;
+                  subReasonSelect.appendChild(option);
+              });
+          }
+      });
+
+      document.getElementById('gatePassForm').addEventListener('submit', function(event) {
+          const inTime = document.getElementById('in-time').value;
+          const outTime = document.getElementById('out-time').value;
+          if (outTime && inTime && outTime >= inTime) {
+              alert('In Time must be greater than Out Time');
+              event.preventDefault();
+          }
+      });
+    </script>
+  </div>
 </div>
-
-<script>
-  document.getElementById('date').valueAsDate = new Date();
-
-  const subReasonMap = {
-      official: ["Meeting", "Inspection", "Field Work"],
-      personal: ["Medical", "Family Emergency", "Other"]
-  };
-
-  document.getElementById('reason').addEventListener('change', function() {
-      const subReasonSelect = document.getElementById('sub-reason');
-      subReasonSelect.innerHTML = '<option value="">Select Sub Reason</option>';
-
-      if (this.value in subReasonMap) {
-          subReasonMap[this.value].forEach(subReason => {
-              const option = document.createElement('option');
-              option.value = subReason.toLowerCase().replace(/ /g, "_");
-              option.textContent = subReason;
-              subReasonSelect.appendChild(option);
-          });
-      }
-  });
 </script>
 
 <!--<footer th:include="staticfrags/footer">-->

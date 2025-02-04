@@ -2,6 +2,7 @@ package com.gatepass.controllers;
 
 
 import com.gatepass.dtos.LoginDTO;
+import com.gatepass.dtos.PassDTO;
 import com.gatepass.service.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -32,6 +33,7 @@ public class OpsController {
         } else if (staffService.existByUserName(loginDTO.getUserName())) {
             model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " Welcome");
             model.addAttribute("success", loginDTO);
+            model.addAttribute("passDTO", new PassDTO());
             logger.info("user {} found in the staff records", loginDTO.getUserName());
             return "pages/staff";
         } else if (hodService.existByUserName(loginDTO.getUserName())) {
