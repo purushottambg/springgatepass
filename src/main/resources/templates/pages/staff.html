@@ -10,11 +10,6 @@
 <header th:insert="staticfrags/header">
 
 </header>
-
-<h3 th:text="${successLogIn}"></h3>
-
-<h5 th:text="${response}"></h5>
-
 <div class="form-container">
   <div class="form-container">
     <form id="gatePassForm" th:action="@{/ops/save-pass}" th:object="${passDTO}" method="post">
@@ -25,6 +20,7 @@
         <div class="form-group">
           <label for="date">Date:</label>
           <input type="date" id="date" name="date"  readonly>
+          <input name="staffId" th:value="${passDTO.staffid}" th:field="*{staffid}">
         </div>
         <div class="form-group">
           <label for="out-time">Out Time:</label>
@@ -61,7 +57,7 @@
       </div>
 
       <div class="form-buttons">
-        <button type="submit">Submit Pass</button>
+        <button type="submit" id="submitBtn">Submit Pass</button>
         <button type="reset">Reset Form</button>
       </div>
     </form>

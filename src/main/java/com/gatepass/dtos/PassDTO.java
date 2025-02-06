@@ -13,6 +13,7 @@ import java.sql.Date;
 @Setter
 public class PassDTO {
 
+
     private String outtime;
 
     private String intime;
@@ -22,4 +23,6 @@ public class PassDTO {
     private String subreason;
 
     private String description;
+
+    private Long staffid;
 }
