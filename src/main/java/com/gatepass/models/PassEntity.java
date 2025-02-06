@@ -1,9 +1,7 @@
 package com.gatepass.models;
 
 import lombok.*;
-
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 @AllArgsConstructor
@@ -24,10 +22,40 @@ public class PassEntity extends AuditableEntity{
 
     private String subReason;
 
+    private String description;
+
     @ManyToOne
-    @JoinTable(name = "staffid")
+    @JoinColumn(name = "staffid",  nullable = false)
     private StaffEntity staffEntity;
 
-    private String description;
+    @ManyToOne
+    @JoinColumn(name = "dptid")
+    private DepartmentEntity departmentEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "hodid")
+    private HODEntity hodEntity;
+
+    private String hodpassstatus="pending";
+
+    private String hodremark="NA";
+
+    @ManyToOne
+    @JoinColumn(name = "prnid")
+    private PrincipalEntity principalEntity;
+
+    private String principalpassstatus="pending";
+
+    private String principalremark="NA";
+
+    @ManyToOne
+    @JoinColumn(name = "clerkid")
+    private ClerkEntity clerkEntity;
+
+    @Column(updatable = false)
+    private String actualreturntime;
+
+    private String officeremark;
+
 
 }

@@ -52,12 +52,12 @@ public class StaffEntity  implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "staffEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PassEntity> passes = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name = "dptid", referencedColumnName = "dptid")
     private DepartmentEntity departmentEntity;
+
+    @OneToMany(mappedBy = "staffEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<PassEntity> passes;
 
 
     @Override

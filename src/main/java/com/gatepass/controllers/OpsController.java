@@ -31,10 +31,12 @@ public class OpsController {
 
             return "pages/member-request";               //Redirection should be based on the user type
         } else if (staffService.existByUserName(loginDTO.getUserName())) {
-            model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " Welcome");
-            model.addAttribute("success", loginDTO);
-            model.addAttribute("passDTO", new PassDTO());
-            logger.info("user {} found in the staff records", loginDTO.getUserName());
+            logger.info("first dto username is {}", loginDTO.getUserName());
+            LoginDTO loginDTO1 = staffService.existByUserName2(loginDTO.getUserName());
+            PassDTO passDTO = new PassDTO();
+            passDTO.setStaffid(loginDTO1.getId());
+            model.addAttribute("passDTO", passDTO);
+            logger.info("staffid in passing DTO is: {}  ", passDTO.getStaffid());
             return "pages/staff";
         } else if (hodService.existByUserName(loginDTO.getUserName())) {
             model.addAttribute("response","Hi, " + loginDTO.getUserName() + " Welcome");
