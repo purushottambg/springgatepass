@@ -1,6 +1,5 @@
 package com.gatepass.controllers;
 
-import com.gatepass.dtos.LoginDTO;
 import com.gatepass.dtos.PassDTO;
 import com.gatepass.service.PassesService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +20,15 @@ public class PassController {
     Logger logger = LoggerFactory.getLogger(PassController.class);
     @PostMapping("/ops/save-pass")
     public String savePass(@ModelAttribute("passDTO") PassDTO passDTO, Model model){
-        logger.info("Before passing to the passService staffid/descritpin {}",passDTO.getStaffid() );
-        passesService.savePass(passDTO);
+        Long createdPassId = passesService.savePass(passDTO);
+        if(createdPassId!=null && createdPassId>0){
+            logger.info("Created Pass Id is {}", createdPassId);
+            model.addAttribute("passsubmission","Pass is successfully created with passid: "+createdPassId);
+        }else{
+            model.addAttribute("passsubmission","Pass creation failed");
+        }
+
+
         return   "pages/staff";
     }
 }

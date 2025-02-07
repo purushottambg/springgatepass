@@ -2,6 +2,7 @@ package com.gatepass.service;
 
 import com.gatepass.controllers.OpsController;
 import com.gatepass.dtos.PassDTO;
+import com.gatepass.exceptions.FailedToSavePassException;
 import com.gatepass.models.PassEntity;
 import com.gatepass.repository.PassesRepo;
 import com.gatepass.repository.StaffRepo;
@@ -19,7 +20,7 @@ public class PassesService {
     private final ModelMapper modelMapper;
 
     Logger log = LoggerFactory.getLogger(OpsController.class);
-    public void savePass(PassDTO passDTO) {
+    public Long savePass(PassDTO passDTO) {
 
         /*
         modelmapper.typeMap is a kinda mapper that defines how mapping should take place
@@ -41,6 +42,14 @@ public class PassesService {
 
         PassEntity tobeSavedPass = modelMapper.map(passDTO, PassEntity.class);
 
-        passesRepo.save(tobeSavedPass);
+        PassEntity savedPass = passesRepo.save(tobeSavedPass);
+
+        if ( savedPass!=null && savedPass.getPassid()!=null ) {
+            log.info("Pass saved in the Database and pass id is : {}", savedPass.getPassid());
+            return savedPass.getPassid();
+        }else {
+            log.info("Pass not saved");
+            throw new FailedToSavePassException("Pass couldn't saved, Try again");
+        }
     }
 }

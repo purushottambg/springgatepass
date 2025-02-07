@@ -16,6 +16,9 @@
       <div class="form-row">
          <h3>Kindly fill the below details!</h3>
       </div>
+      <div class="form-row" th:if="${passsubmission}">
+        <p name="passstatus" th:text="${passsubmission}"> </p>
+      </div>
       <div class="form-row">
         <div class="form-group">
           <label for="date">Date:</label>
