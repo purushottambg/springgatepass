@@ -2,6 +2,7 @@
 <html language="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>SpringBoot Powered GatePass</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
 
@@ -9,30 +10,66 @@
     <!-- Header must be declared here -->
 </header>
 
-
 <div class="container">
-    <h3>Please Log In to the System</h3>
-    <div th:if="${failureResponse}" style="color: red;">
-        <p th:text="${failureResponse}"></p>
-    </div>
-    <form th:method="POST" th:action="@{/ops/validate-login}" th:object="${loginDTO}">
-        <div class="form-group">
-            <label >UserName</label>
-            <input type="text" class="form-control" id="staff" name="username" placeholder="Username1234" th:field="*{userName}" required>
-        </div>
-        <div class="form-group">
-            <label >Password</label>
-            <input type="password" class="form-control" id="Password" name="password" placeholder="Password" th:field="*{password}" required>
+    <div class="content">
+        <!-- Left Section (70%) -->
+        <div class="info-section">
+            <h2>Welcome to the Gate Pass System</h2>
+            <p>
+                This platform allows college staff to request permissions before leaving the campus and records
+                their in-and-out movements during teaching hours. It ensures transparency and security while
+                maintaining a streamlined approval process.
+            </p>
         </div>
 
-        <div class="form-group">
-            <tr>
-                <td><input class="btn-outline-secondary" type="submit" value="LogIn"></td>
-                <td><input class="btn-outline-secondary" type="reset" value="Reset"></td>
-            </tr>
+        <!-- Right Section (30%) - Login Panel -->
+        <div class="login-section">
+            <h3>Please Log In to the System</h3>
+            <div th:if="${failureResponse}" class="error-message">
+                <p th:text="${failureResponse}"></p>
+            </div>
+            <form th:method="POST" th:action="@{/ops/validate-login}" th:object="${loginDTO}">
+                <div class="form-group">
+                    <label>UserName</label>
+                    <input type="text" class="form-control" id="staff" name="username" placeholder="Username1234" th:field="*{userName}" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="Password" name="password" placeholder="Password" th:field="*{password}" required>
+                </div>
+                <div class="form-group btn-group">
+                    <input class="btn btn-primary" type="submit" value="Log In">
+                    <input class="btn btn-secondary" type="reset" value="Reset">
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
+
+
+<!--<div class="container">
+     <h3>Please Log In to the System</h3>
+     <div th:if="${failureResponse}" style="color: red;">
+         <p th:text="${failureResponse}"></p>
+     </div>
+     <form th:method="POST" th:action="@{/ops/validate-login}" th:object="${loginDTO}">
+         <div class="form-group">
+             <label >UserName</label>
+             <input type="text" class="form-control" id="staff" name="username" placeholder="Username1234" th:field="*{userName}" required>
+         </div>
+         <div class="form-group">
+             <label >Password</label>
+             <input type="password" class="form-control" id="Password" name="password" placeholder="Password" th:field="*{password}" required>
+         </div>
+
+         <div class="form-group">
+             <tr>
+                 <td><input class="btn-outline-secondary" type="submit" value="LogIn"></td>
+                 <td><input class="btn-outline-secondary" type="reset" value="Reset"></td>
+             </tr>
+         </div>
+     </form>
+ </div>-->
 
 
 <footer th:insert="/staticfrags/footer">
