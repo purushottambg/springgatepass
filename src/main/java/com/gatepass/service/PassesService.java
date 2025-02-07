@@ -17,14 +17,14 @@ public class PassesService {
     private final PassesRepo passesRepo;
     private final StaffRepo staffRepo;
     private final ModelMapper modelMapper;
+
     Logger log = LoggerFactory.getLogger(OpsController.class);
     public void savePass(PassDTO passDTO) {
-        log.info("staffid in Pass DTO is: {}", passDTO.getStaffid());
 
         /*
         modelmapper.typeMap is a kinda mapper that defines how mapping should take place
          */
-        log.info("Before model Mapper, outtime {}, intime {}, reason {}, subreason {}", passDTO.getOuttime(), passDTO.getIntime(), passDTO.getReason(), passDTO.getSubreason());
+
         modelMapper.typeMap(PassDTO.class, PassEntity.class)
                 .setConverter(context -> {
                     PassDTO src = context.getSource();
@@ -38,9 +38,9 @@ public class PassesService {
 
                     return dest;
                 });
+
         PassEntity tobeSavedPass = modelMapper.map(passDTO, PassEntity.class);
-        log.info("After model Mapper, outtime {}, intime {}, reason {}, subreason {}", tobeSavedPass.getOuttime(), tobeSavedPass.getIntime(), tobeSavedPass.getReason(), tobeSavedPass.getSubReason());
-        log.info("In Pass service in tobe saved Pass staff id {}", tobeSavedPass.getStaffEntity().getStaffid());
+
         passesRepo.save(tobeSavedPass);
     }
 }
