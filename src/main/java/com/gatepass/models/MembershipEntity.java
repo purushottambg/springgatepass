@@ -10,6 +10,7 @@ import java.util.Collections;
 @Entity
 @Getter
 @Setter
+@Builder
 @Table(name = "membershiprequest", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"username", "phone", "email"}) })
 public class MembershipEntity  extends AuditableEntity  implements UserDetails {

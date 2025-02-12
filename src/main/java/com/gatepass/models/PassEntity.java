@@ -57,5 +57,4 @@ public class PassEntity extends AuditableEntity{
 
     private String officeremark;
 
-
 }
