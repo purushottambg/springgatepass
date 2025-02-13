@@ -23,9 +23,9 @@ public class MemberController {
 
     @GetMapping("pages/member-request")  //Page is designed to accept the data
     public String memberRequest(Model model){
-        MembershipEntity membershipEntity = new MembershipEntity();
+        //MembershipEntity membershipEntity = new MembershipEntity();
         logger.info("empty Membership Request sent to the page");
-        model.addAttribute("membershipEntity", membershipEntity);
+        ///model.addAttribute("membershipEntity", membershipEntity);
         return "pages/member-request";
     }
 
