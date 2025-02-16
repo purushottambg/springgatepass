@@ -1,21 +1,28 @@
 package com.gatepass;
 
 
-import com.gatepass.service.PassesService;
 import org.junit.jupiter.api.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 
-
+@SpringBootTest
+@ActiveProfiles("test")
+//@TestPropertySource("classpath:application-test.properties")
 class GatepassApplicationTests {
-	@Autowired
-	PassesService passesService;
-	static Logger logger = LoggerFactory.getLogger(GatepassApplicationTests.class);
+//	@Autowired
+//	PassesService passesService;
+//	static Logger logger = LoggerFactory.getLogger(GatepassApplicationTests.class);
+//
+//	@Test
+//	public void addTwoNumbers(){
+//		logger.info("No tests for now");
+//	}
 
 	@Test
-	public void addTwoNumbers(){
-		logger.info("No tests for now");
+	public void testActiveProfile() {
+		System.out.println("test is an Active Profile");
 	}
 }
