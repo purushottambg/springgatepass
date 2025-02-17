@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface HODRepo extends JpaRepository<HODEntity, Long> {
     public Optional<HODEntity> findByuserName(String userName);
+    public HODEntity findByHodid(Long hodid);
 }
