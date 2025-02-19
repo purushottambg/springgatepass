@@ -34,17 +34,20 @@ public class MembershipRequestService implements UserDetailsService{
     @Transactional
     public MembershipEntity saveRequest(MembershipEntity membershipEntity) {
 
+        membershipEntity.setUsername(getDynamicUsername(membershipEntity));
+        membershipEntity.setPassword(passwordEncoder.encode(membershipEntity.getPassword()));
+        logger.info("Password encoded successfully");
+
+        return membershipRepo.save(membershipEntity);
+    }
+
+    public String getDynamicUsername(MembershipEntity membershipEntity){
         String firstName = membershipEntity.getFname().toLowerCase();
         String phone = membershipEntity.getPhone();
         String userName = firstName + phone.substring(phone.length() - 4);
         membershipEntity.setUsername(membershipEntity.getFname());
         logger.info("Generated username: {}", userName);
-
-        membershipEntity.setUsername(userName);
-        membershipEntity.setPassword(passwordEncoder.encode(membershipEntity.getPassword()));
-        logger.info("Password encoded successfully");
-
-        return membershipRepo.save(membershipEntity);
+        return userName;
     }
 
     @Override
