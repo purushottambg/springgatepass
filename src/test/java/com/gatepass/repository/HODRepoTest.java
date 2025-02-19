@@ -12,32 +12,6 @@ import java.util.Optional;
 
 import org.springframework.test.context.ActiveProfiles;
 
-
-
-//    @Test
-//    void findByuserName() {
-//        //Arrange | Given
-//        hodRepo.save(hodEntity);
-//        //Act | When
-//        Optional<HODEntity> hodEntity1 = hodRepo.findByuserName(hodEntity.getUserName());
-//        hodEntity1.ifPresent(hodEntity2 -> {
-//            hodEntity3 = hodEntity2;
-//        });
-//        //Assert | then
-//        Assertions.assertThat(hodEntity3).isNotNull();
-//    }
-//
-//    @Test
-//    void findBtHodid() {
-//        //Arrange | Given
-//        hodRepo.save(hodEntity);
-//        //Act | When
-//        HODEntity hodEntity1 = hodRepo.findByHodid(Long.valueOf(121));
-//        //Assert | then
-//        Assertions.assertThat(hodEntity1).isNotNull();
-//    }
-//}
-
 @DataJpaTest
 @ActiveProfiles("test")
 class HODRepoTest {

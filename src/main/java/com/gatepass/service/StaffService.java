@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +29,10 @@ public class StaffService implements UserDetailsService {
 
     public Boolean existByUserName(String userName){
         return staffRepo.findByUsername(userName).isPresent();
+    }
+
+    public List<String> nothing(){
+        return staffRepo.nothingButMockito(Arrays.asList("one"));
     }
 
     public LoginDTO existByUserName2(String userName){
