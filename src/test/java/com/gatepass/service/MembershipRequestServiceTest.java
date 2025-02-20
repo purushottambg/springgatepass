@@ -22,10 +22,10 @@ class MembershipRequestServiceTest {
     @Test
     void getDynamicUsername() {
         MembershipEntity membershipEntity = MembershipEntity.builder()
-                .fname("Pallavi").phone("7666947497")
+                .fname("Pallavi").phone("7667497")
         .build();
          membershipEntity.setFname("Pallavi");
-         membershipEntity.setPhone("7666947497");
+         membershipEntity.setPhone("7667497");
         String username = membershipRequestService.getDynamicUsername(membershipEntity);
 
         Assertions.assertThat(username).isNotBlank();
