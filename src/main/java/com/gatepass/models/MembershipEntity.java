@@ -11,8 +11,8 @@ import java.util.Collections;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "membershiprequest", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"username", "phone", "email"}) })
 public class MembershipEntity  extends AuditableEntity  implements UserDetails {

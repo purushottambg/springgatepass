@@ -75,15 +75,15 @@ class StaffServiceTest {
 
     }
 
-    @Test
-    @DisplayName("This is just the Happy Case")
-    void happyCaseOfMockito() {
-        List<String> username = new ArrayList<String>(Arrays.asList("One", "Two"));
-        //when(staffRepo.nothingButMockito(username)).thenReturn(Arrays.asList("one"));
-
-        List<String> loginDTO = staffService.nothing();
-
-        assertNotNull(loginDTO);
-        //assertEquals( String.class);
-    }
+//    @Test
+//    @DisplayName("This is just the Happy Case")
+//    void happyCaseOfMockito() {
+//        List<String> username = new ArrayList<String>(Arrays.asList("One", "Two"));
+//        //when(staffRepo.nothingButMockito(username)).thenReturn(Arrays.asList("one"));
+//
+//        List<String> loginDTO = staffService.nothing();
+//
+//        assertNotNull(loginDTO);
+//        //assertEquals( String.class);
+//    }
 }

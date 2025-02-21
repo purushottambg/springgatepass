@@ -28,7 +28,6 @@ public class OpsController {
         if(membershipRequestService.existByUserName(loginDTO.getUserName())) {
             model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " your membership is not approved yet");
             logger.info("Found user into the membership requested");
-
             return "pages/member-request";               //Redirection should be based on the user type
         } else if (staffService.existByUserName(loginDTO.getUserName())) {
             logger.info("first dto username is {}", loginDTO.getUserName());
