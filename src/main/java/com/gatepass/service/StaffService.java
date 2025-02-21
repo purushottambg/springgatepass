@@ -31,10 +31,6 @@ public class StaffService implements UserDetailsService {
         return staffRepo.findByUsername(userName).isPresent();
     }
 
-    public List<String> nothing(){
-        return staffRepo.nothingButMockito(Arrays.asList("one"));
-    }
-
     public LoginDTO existByUserName2(String userName){
         logger.info("Username in service is {}", userName);
         StaffEntity staffEntity = staffRepo.findByUsername(userName).orElseThrow(() -> new UsernameNotFoundException("Did not find the user"));
