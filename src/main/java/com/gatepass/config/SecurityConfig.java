@@ -7,8 +7,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,10 +21,11 @@ public class SecurityConfig {
 
         httpSecurity.authorizeHttpRequests(auth -> auth
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .antMatchers("/index", "/pages/member-request").permitAll()
+                        .antMatchers("/index","/pages/member-request","/ops/save-request").permitAll()
+                .antMatchers("/index", "/pages/member-request").authenticated()
                 .antMatchers("/staticfrags/footer.html", "/staticfrags/header.html").permitAll()
                 .antMatchers( "/mediafiles/JSCOE_logo.png").permitAll()
-                .anyRequest().permitAll())
+                .anyRequest().authenticated())
                 .csrf().disable()
                 .logout(LogoutConfigurer::permitAll);
 

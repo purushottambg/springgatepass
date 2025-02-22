@@ -21,6 +21,10 @@ public class MemberController {
     private MembershipRequestService membershipRequestService;
     Logger logger = LoggerFactory.getLogger(MemberController.class);
 
+
+    /*
+    When user entered credentials are correct then he should be redirected from this method
+     */
     @GetMapping("pages/member-request")  //Page is designed to accept the data
     public String memberRequest(Model model){
         MembershipEntity membershipEntity = new MembershipEntity();

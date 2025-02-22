@@ -52,15 +52,13 @@ public class MembershipRequestService implements UserDetailsService{
     public String getDynamicUsername(MembershipEntity membershipEntity){
         String firstName = membershipEntity.getFname().toLowerCase();
         String phone = membershipEntity.getPhone();
-        String userName = firstName + phone.substring(phone.length() - 4);
-        membershipEntity.setUsername(membershipEntity.getFname());
-        logger.info("Generated username: {}", userName);
-        return userName;
+        logger.info("Generated username: {}", firstName + phone.substring(phone.length() - 4));
+        return firstName + phone.substring(phone.length() - 4);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return membershipRepo.findByUsername(username).orElseThrow(()-> new ResourceNotFoundException("User with "+username+" does not exist!"));
+        return membershipRepo.findByUsername(username).orElseThrow(()-> new  UsernameNotFoundException("User with " + username + " does not exist!"));
     }
 
     public Optional<MembershipEntity> findByID(Long appid) {
