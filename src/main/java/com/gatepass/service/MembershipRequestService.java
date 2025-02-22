@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.Optional;
+
 @Primary
 @Service
 public class MembershipRequestService implements UserDetailsService{
@@ -27,9 +28,10 @@ public class MembershipRequestService implements UserDetailsService{
         this.membershipRepo = membershipRepo;
         this.passwordEncoder=passwordEncoder;
     }
-    /**
-     * Save a membership request.
-     * Generates a username from the user's first name and phone number and encode the password.
+
+    /*
+      Save a membership request.
+      Also ensure password is encoded with the help of BCryptPassword Encoder
      */
     @Transactional
     public MembershipEntity saveRequest(MembershipEntity membershipEntity) {
@@ -40,6 +42,12 @@ public class MembershipRequestService implements UserDetailsService{
 
         return membershipRepo.save(membershipEntity);
     }
+
+    /*
+    getDynamicUsername is a method which accepts the membership Entity object and returns the suitable username.
+    The algorithm behind is get first name turn to the lowercase for uniform usernames and appends the last
+    four digits of the phone number.
+     */
 
     public String getDynamicUsername(MembershipEntity membershipEntity){
         String firstName = membershipEntity.getFname().toLowerCase();
