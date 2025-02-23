@@ -4,6 +4,9 @@ import com.gatepass.models.MembershipEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
@@ -15,7 +18,7 @@ import java.util.function.Function;
 public class JWTService {
 
     //@Value("${jwt.secretKey}")
-    private static final String jwtSecretKey="ads9f6askj3h4k1hf86asdfiahkjh34a789s6df89ayshkjh3jkh786adsf78ay";
+    private String jwtSecretKey="ads9f6askj3h4k1hf86asdfiahkjh34a789s6df89ayshkjh3jkh786adsf78ay";
 
     private SecretKey getSecretKey(){
         return Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
@@ -43,10 +46,9 @@ public class JWTService {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(MembershipEntity membershipEntity){
+    public String generateToken(User user){
         return Jwts.builder()
-                .setSubject(membershipEntity.getUsername())
-                .claim("email", membershipEntity.getEmail())
+                .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((System.currentTimeMillis()+1000*60)))
                 .signWith(getSecretKey())

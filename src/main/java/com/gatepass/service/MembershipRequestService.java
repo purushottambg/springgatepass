@@ -1,8 +1,8 @@
 package com.gatepass.service;
 
-import com.gatepass.exceptions.ResourceNotFoundException;
 import com.gatepass.models.MembershipEntity;
 import com.gatepass.repository.MembershipRepo;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
@@ -18,16 +18,17 @@ import java.util.Optional;
 
 @Primary
 @Service
+@RequiredArgsConstructor
 public class MembershipRequestService implements UserDetailsService{
 
     private final MembershipRepo membershipRepo;
     private final PasswordEncoder passwordEncoder;
     private final Logger logger = LoggerFactory.getLogger(MembershipRequestService.class);
 
-    public MembershipRequestService(MembershipRepo membershipRepo, PasswordEncoder passwordEncoder) {
-        this.membershipRepo = membershipRepo;
-        this.passwordEncoder=passwordEncoder;
-    }
+//    public MembershipRequestService(MembershipRepo membershipRepo, PasswordEncoder passwordEncoder) {
+//        this.membershipRepo = membershipRepo;
+//        this.passwordEncoder=passwordEncoder;
+//    }
 
     /*
       Save a membership request.
