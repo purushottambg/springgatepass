@@ -25,15 +25,6 @@ public class MembershipRequestService implements UserDetailsService{
     private final PasswordEncoder passwordEncoder;
     private final Logger logger = LoggerFactory.getLogger(MembershipRequestService.class);
 
-//    public MembershipRequestService(MembershipRepo membershipRepo, PasswordEncoder passwordEncoder) {
-//        this.membershipRepo = membershipRepo;
-//        this.passwordEncoder=passwordEncoder;
-//    }
-
-    /*
-      Save a membership request.
-      Also ensure password is encoded with the help of BCryptPassword Encoder
-     */
     @Transactional
     public MembershipEntity saveRequest(MembershipEntity membershipEntity) {
 
