@@ -24,6 +24,7 @@ public class JWTService {
         return Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
     }
 
+    //Function to generate the JWT token for the user shared to the function.
     public String generateToken(UserDetails userDetails){
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
@@ -33,6 +34,7 @@ public class JWTService {
                 .compact();
     }
 
+    //retrieve the username from the given token
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -46,15 +48,18 @@ public class JWTService {
         return claimsResolver.apply(claims);
     }
 
+    //Function to generate the JWT token for the user shared to the function.
     public String generateToken(User user){
         return Jwts.builder()
                 .setSubject(user.getUsername())
+                .claim("username", user.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((System.currentTimeMillis()+1000*60)))
                 .signWith(getSecretKey())
                 .compact();
     }
 
+    //Function to generate the JWT token for the user shared to the function.
     public String generateToken(String username){
         return Jwts.builder()
                 .setSubject(username)
@@ -64,6 +69,7 @@ public class JWTService {
                 .compact();
     }
 
+    //Parser is used to access the user details from the given token
     public String getUsernameFromToken(String Token) throws Exception{
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getSecretKey())

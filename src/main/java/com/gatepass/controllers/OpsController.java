@@ -32,7 +32,6 @@ public class OpsController {
         } else if (staffService.existByUserName(loginDTO.getUserName())) {
             logger.info("first dto username is {}", loginDTO.getUserName());
             LoginDTO loginDTO1 = staffService.existByUserName2(loginDTO.getUserName());
-            System.out.println("logInDTO1 values are");
             PassDTO passDTO = new PassDTO();
             passDTO.setStaffid(loginDTO1.getId());
             model.addAttribute("passDTO", passDTO);
