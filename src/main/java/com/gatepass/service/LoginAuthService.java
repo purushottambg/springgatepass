@@ -1,6 +1,60 @@
 package com.gatepass.service;
 
 import com.gatepass.dtos.LoginDTO;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class LoginAuthService {
+
+    private final AuthenticationManager authenticationManager;
+    private final JWTService jwtService;
+    private final MembershipRequestService membershipRequestService;
+    private final StaffService staffService;
+    private final Logger logger = LoggerFactory.getLogger(LoginAuthService.class);
+
+    public String logIn(LoginDTO loginDTO) {
+        // Authenticate user
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginDTO.getUserName(), loginDTO.getPassword())
+        );
+
+        if (!authentication.isAuthenticated()) {
+            throw new UsernameNotFoundException("Invalid username or password");
+        }
+
+        // Fetch UserDetails based on authenticated user
+        UserDetails userDetails;
+        if (membershipRequestService.existsByUsername(loginDTO.getUserName())) {
+            userDetails = membershipRequestService.loadUserByUsername(loginDTO.getUserName());
+        } else if (staffService.existsByUsername(loginDTO.getUserName())) {
+            userDetails = staffService.loadUserByUsername(loginDTO.getUserName());
+        } else {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        // Generate and return token
+        String token = jwtService.generateToken(userDetails);
+        logger.info("Generated Token: {}", token);
+        return token;
+    }
+}
+
+
+
+
+/*package com.gatepass.service;
+
+import com.gatepass.dtos.LoginDTO;
 import com.gatepass.models.MembershipEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +86,7 @@ public class LoginAuthService {
      * Generate a JWT token for an authenticated user.
      */
 
-    public String logIn(LoginDTO loginDTO){
+/*    public String logIn(LoginDTO loginDTO){
         logger.info("First line in login auth");
         authenticationManager.authenticate(
                  new UsernamePasswordAuthenticationToken(loginDTO.getUserName(), loginDTO.getPassword())
@@ -68,4 +122,4 @@ public class LoginAuthService {
         }
 
     }
-}
+}*/

@@ -25,15 +25,16 @@ public class OpsController {
     @PostMapping("ops/validate-login")
     public String logInValidation(@ModelAttribute("loginDTO") LoginDTO loginDTO, Model model){
 
-        if(membershipRequestService.existByUserName(loginDTO.getUserName())) {
+        if(membershipRequestService.existsByUsername(loginDTO.getUserName())) {
             model.addAttribute("response", "Hi, " + loginDTO.getUserName() + " your membership is not approved yet");
             logger.info("Found user into the membership requested");
             return "pages/member-request";               //Redirection should be based on the user type
-        } else if (staffService.existByUserName(loginDTO.getUserName())) {
+        } else if (staffService.existsByUsername(loginDTO.getUserName())) {
             logger.info("first dto username is {}", loginDTO.getUserName());
-            LoginDTO loginDTO1 = staffService.existByUserName2(loginDTO.getUserName());
+            //logger.info("Generated Token value is: {}", staffService.loginStaff(loginDTO));
+            //LoginDTO loginDTO1 = staffService.existsByUsername(loginDTO.getUserName());
             PassDTO passDTO = new PassDTO();
-            passDTO.setStaffid(loginDTO1.getId());
+            passDTO.setStaffid(Long.valueOf(1143));
             model.addAttribute("passDTO", passDTO);
             model.addAttribute("success", loginDTO);
             logger.info("staffid in passing DTO is: {}  ", passDTO.getStaffid());
