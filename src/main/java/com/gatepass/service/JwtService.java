@@ -2,36 +2,43 @@ package com.gatepass.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
+
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JWTService {
+public class JwtService {
 
-    private final String jwtSecretKey = "ads9f6askj3h4k1hf86asdfiahkjh34a789s6df89ayshkjh3jkh786adsf78ay";
-    Logger logger = LoggerFactory.getLogger(JWTService.class);
+    @Value("${jwt.secretKey}")
+    String secretKey;
 
-    private SecretKey getSecretKey() {
-        return Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60;  // 1 hour
+
+    // Generate token using UserDetails
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(userDetails.getUsername());
     }
 
-    public String generateToken(UserDetails userDetails) {
-        String token = Jwts.builder()
-                .setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 3))
-                .signWith(getSecretKey())
-                .compact();
-        logger.info("Created token id: {}",token);
-        return token;
+    // Generate token using username
+    public String generateToken(String username) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, username);
+    }
 
+    private String createToken(Map<String, Object> claims, String subject) {
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
     }
 
     public String extractUsername(String token) {
@@ -39,12 +46,22 @@ public class JWTService {
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = Jwts.parserBuilder()
-                .setSigningKey(getSecretKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+    }
+
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    private boolean isTokenExpired(String token) {
+        Date expiration = extractClaim(token, Claims::getExpiration);
+        return expiration.before(new Date());
     }
 }
 

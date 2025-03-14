@@ -1,5 +1,6 @@
 package com.gatepass.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,6 +42,11 @@ public class StaffEntity  implements UserDetails {
     @Column(nullable = false, length = 40)
     private String designation;
 
+    //Temporary work around
+    public String getRole() {
+        return "Staff";
+    }
+
     @Column(nullable = false, length = 12)
     private String phone;
 
@@ -55,6 +61,7 @@ public class StaffEntity  implements UserDetails {
     private DepartmentEntity departmentEntity;
 
     @OneToMany(mappedBy = "staffEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<PassEntity> passes;
 
 

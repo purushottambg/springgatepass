@@ -2,6 +2,7 @@ package com.gatepass.service;
 
 import com.gatepass.dtos.LoginDTO;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,8 +18,9 @@ import org.springframework.stereotype.Service;
 public class LoginAuthService {
 
     private final AuthenticationManager authenticationManager;
-    private final JWTService jwtService;
+    //private final JWTService jwtService;
     private final MembershipRequestService membershipRequestService;
+    @Lazy
     private final StaffService staffService;
     private final Logger logger = LoggerFactory.getLogger(LoginAuthService.class);
 
@@ -43,9 +45,12 @@ public class LoginAuthService {
         }
 
         // Generate and return token
-        String token = jwtService.generateToken(userDetails);
-        logger.info("Generated Token: {}", token);
-        return token;
+//        String token = jwtService.generateToken(userDetails);
+//        logger.info("Generated Token: {}", token);
+//        return token;
+        //}
+
+        return "null";
     }
 }
 
