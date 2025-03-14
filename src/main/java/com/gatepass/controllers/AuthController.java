@@ -30,16 +30,25 @@ public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @PostMapping("/login")
-    public String authenticateUser(@RequestBody LoginDTO loginDTO) {
+    public String authenticateUser(@ModelAttribute LoginDTO loginDTO) {
         logger.info("Authenticating user: {}", loginDTO.getUserName());
 
         // Authenticate user
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDTO.getUserName(), loginDTO.getPassword())
-        );
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginDTO.getUserName(), loginDTO.getPassword())
+            );
+            logger.info("User authenticated successfully: {}", loginDTO.getUserName());
+        } catch (Exception e) {
+            logger.error("Authentication failed for user {}: {}", loginDTO.getUserName(), e.getMessage());
+            throw e;  // Optional: rethrow if needed
+        }
+        logger.info("User authenticated successfully: {}", loginDTO.getUserName());
 
         // Fetch user details and generate JWT token
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginDTO.getUserName());
+        logger.info("Loaded UserDetails for: {}", loginDTO.getUserName());
+
         String token = jwtService.generateToken(userDetails);
         logger.info("Generated token for user {}: {}", loginDTO.getUserName(), token);
 
