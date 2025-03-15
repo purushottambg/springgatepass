@@ -1,6 +1,6 @@
 package com.gatepass.service;
 
-import com.gatepass.controllers.OpsController;
+//import com.gatepass.controllers.OpsController;
 import com.gatepass.dtos.PassDTO;
 import com.gatepass.exceptions.FailedToSavePassException;
 import com.gatepass.models.PassEntity;
@@ -19,7 +19,7 @@ public class PassesService {
     private final StaffRepo staffRepo;
     private final ModelMapper modelMapper;
 
-    Logger log = LoggerFactory.getLogger(OpsController.class);
+    //Logger log = LoggerFactory.getLogger(OpsController.class);
     public Long savePass(PassDTO passDTO) {
 
         /*
@@ -45,10 +45,10 @@ public class PassesService {
         PassEntity savedPass = passesRepo.save(tobeSavedPass);
 
         if ( savedPass!=null && savedPass.getPassid()!=null ) {
-            log.info("Pass saved in the Database and pass id is : {}", savedPass.getPassid());
+            //log.info("Pass saved in the Database and pass id is : {}", savedPass.getPassid());
             return savedPass.getPassid();
         }else {
-            log.info("Pass not saved");
+            //log.info("Pass not saved");
             throw new FailedToSavePassException("Pass couldn't saved, Try again");
         }
     }

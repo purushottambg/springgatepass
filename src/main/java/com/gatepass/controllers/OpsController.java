@@ -1,4 +1,4 @@
-package com.gatepass.controllers;
+/*package com.gatepass.controllers;
 
 import com.gatepass.dtos.LoginDTO;
 import com.gatepass.dtos.PassDTO;
@@ -27,7 +27,7 @@ Logs:
 
 Improved logging for better traceability.
 
- */
+
 
 @Controller
 @RequestMapping("/")
@@ -46,7 +46,7 @@ public class OpsController {
     /**
      * Validates login and redirects to appropriate pages based on user type.
      */
-    @PostMapping("ops/validate-login")
+   /* @PostMapping("ops/validate-login")
     public String logInValidation(@ModelAttribute("loginDTO") LoginDTO loginDTO, Model model) {
         String username = loginDTO.getUserName();
 
@@ -94,7 +94,7 @@ public class OpsController {
 }
 
 
-/*package com.gatepass.controllers;
+package com.gatepass.controllers;
 
 
 import com.gatepass.dtos.LoginDTO;
