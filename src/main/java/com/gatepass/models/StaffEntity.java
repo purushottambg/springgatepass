@@ -1,5 +1,6 @@
 package com.gatepass.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +21,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "staff",
         uniqueConstraints = @UniqueConstraint(columnNames = {"username", "phone", "email"}))
-public class StaffEntity  implements UserDetails {
+public class StaffEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,14 +57,15 @@ public class StaffEntity  implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dptid", referencedColumnName = "dptid")
+    @JsonBackReference("department-staff")
     private DepartmentEntity departmentEntity;
 
     @OneToMany(mappedBy = "staffEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<PassEntity> passes;
-
+    @ToString.Exclude
+    private List<PassEntity> passes = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

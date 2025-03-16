@@ -1,11 +1,14 @@
 package com.gatepass.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,13 +32,18 @@ public class DepartmentEntity extends AuditableEntity {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "departmentEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<StaffEntity> staffList;
+    @OneToMany(mappedBy = "departmentEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference("department-staff")
+    @ToString.Exclude
+    private List<StaffEntity> staffList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "departmentEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HODEntity> hodList;
+    @OneToMany(mappedBy = "departmentEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference("department-hod")
+    @ToString.Exclude
+    private List<HODEntity> hodList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "departmentEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ClerkEntity> clerkList;
-
+    @OneToMany(mappedBy = "departmentEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference("department-clerk")
+    @ToString.Exclude
+    private List<ClerkEntity> clerkList = new ArrayList<>();
 }

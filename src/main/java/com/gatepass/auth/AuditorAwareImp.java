@@ -1,6 +1,20 @@
 package com.gatepass.auth;
 
 import org.springframework.data.domain.AuditorAware;
+import java.util.Optional;
+
+public class AuditorAwareImp implements AuditorAware<String> {
+    @Override
+    public Optional<String> getCurrentAuditor() {
+        return Optional.of("Purushottam Gutthe");
+    }
+}
+
+
+/*
+package com.gatepass.auth;
+
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.EntityListeners;
@@ -16,4 +30,4 @@ public class AuditorAwareImp implements AuditorAware<String> {
     public Optional<String> getCurrentAuditor() {
         return Optional.of("Purushottam Gutthe");
     }
-}
+}*/

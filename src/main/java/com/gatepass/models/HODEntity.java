@@ -1,9 +1,11 @@
 package com.gatepass.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -39,8 +41,10 @@ public class HODEntity {
 
     private String email;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dptid", nullable = false)
+    @JsonBackReference("department-hod")
+    @ToString.Exclude
     private DepartmentEntity departmentEntity;
 
 }

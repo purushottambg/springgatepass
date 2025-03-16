@@ -1,11 +1,13 @@
 package com.gatepass.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import ch.qos.logback.classic.db.names.ColumnName;
 import com.gatepass.service.ClerkService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -46,7 +48,9 @@ public class ClerkEntity {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dptid", nullable = false)
+    @JsonBackReference("department-clerk")
+    @ToString.Exclude
     private DepartmentEntity departmentEntity;
 }

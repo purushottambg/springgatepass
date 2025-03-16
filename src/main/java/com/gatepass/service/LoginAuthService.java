@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -43,12 +42,6 @@ public class LoginAuthService {
         } else {
             throw new UsernameNotFoundException("User not found");
         }
-
-        // Generate and return token
-//        String token = jwtService.generateToken(userDetails);
-//        logger.info("Generated Token: {}", token);
-//        return token;
-        //}
 
         return "null";
     }
@@ -128,3 +121,5 @@ public class LoginAuthService {
 
     }
 }*/
+
+

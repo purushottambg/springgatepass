@@ -1,28 +1,26 @@
 package com.gatepass;
 
-
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Value;
+import com.gatepass.config.TestSecurityConfig;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
-
 @SpringBootTest
 @ActiveProfiles("test")
-//@TestPropertySource("classpath:application-test.properties")
+@TestPropertySource("classpath:application-test.properties")
+@Import(TestSecurityConfig.class)
 class GatepassApplicationTests {
-//	@Autowired
-//	PassesService passesService;
-//	static Logger logger = LoggerFactory.getLogger(GatepassApplicationTests.class);
-//
-//	@Test
-//	public void addTwoNumbers(){
-//		logger.info("No tests for now");
-//	}
 
 	@Test
-	public void testActiveProfile() {
+	void contextLoads() {
+		// This test verifies that the Spring context loads successfully
+	}
+
+	@Test
+	void testActiveProfile() {
+		// This test verifies that the test profile is active
 		System.out.println("test is an Active Profile");
 	}
 }

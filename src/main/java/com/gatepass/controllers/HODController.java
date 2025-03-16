@@ -18,3 +18,4 @@ public class HODController {
         return "pages/hod-pass-report";
     }
 }
+
