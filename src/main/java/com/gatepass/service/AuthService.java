@@ -35,7 +35,7 @@ public class AuthService {
 //        } else if (principalService.existByUserName(username)) {
 //            return principalService.loadUserByUsername(username);
         } else if (membershipRequestService.existsByUsername(username)) {
-            return null;
+            return membershipRequestService.loadUserByUsername(username);
         }
         return null;
     }

@@ -40,6 +40,7 @@ public class MembershipRequestService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.info("MemberShipRequest: Inside loadUserByUsername for user: {}", username);
         return membershipRepo.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with " + username + " does not exist!"));
     }

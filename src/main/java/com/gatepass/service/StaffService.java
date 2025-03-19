@@ -32,7 +32,7 @@ public class StaffService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info("Inside loadUserByUsername for user: {}", username);
+        logger.info("StaffService: Inside loadUserByUsername for user: {}", username);
 
         StaffEntity staff = staffRepo.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
