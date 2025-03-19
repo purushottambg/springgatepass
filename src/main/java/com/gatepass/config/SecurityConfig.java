@@ -47,7 +47,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/index", "/auth/login", "/ops/save-request", "/ops/validate-login").permitAll()
+                .antMatchers("/index","index", "/auth/login", "/ops/save-request", "/ops/validate-login","/pages/**").permitAll()
                 .antMatchers("/mediafiles/JSCOE_logo.png", "/staticfrags/footer.html", "/staticfrags/header.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
