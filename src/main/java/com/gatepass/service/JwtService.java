@@ -23,14 +23,26 @@ public class JwtService {
     private static final long EXPIRATION_TIME = 1000 * 60 * 60;  // 1 hour
 
     // Generate token using UserDetails
-    public String generateToken(LoginDTO loginDTO) {
-        return generateToken(loginDTO.getUserName());
-    }
+//    public String generateToken(UserDetails userDetails) {
+//        return generateToken(userDetails.getUsername());
+//    }
 
     // Generate token using username
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, username);
+    }
+
+    public String generateToken(UserDetails userDetails){
+          String token = Jwts.builder()
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .setSubject(userDetails.getUsername())
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                  .claim("roles", userDetails.getAuthorities())
+                .compact();
+
+                return token;
     }
 
     private String createToken(Map<String, Object> claims, String subject) {

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -49,11 +50,11 @@ public class AuthController {
             logger.info("User found with username: {}", username);
         }
 
-        MembershipEntity authenticatedMembershipEntity  = (MembershipEntity) authentication.getPrincipal();
-        LoginDTO authenticatedLoginDTO = modelMapper.map(authenticatedMembershipEntity, LoginDTO.class);
+        UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
+        //LoginDTO authenticatedLoginDTO = modelMapper.map(userDetails, LoginDTO.class);
 
         // Generate token
-        String token = jwtService.generateToken(authenticatedLoginDTO);
+        String token = jwtService.generateToken(userDetails);
         logger.info("Generated token for {}: {}", username, token);
         return token;
     }
