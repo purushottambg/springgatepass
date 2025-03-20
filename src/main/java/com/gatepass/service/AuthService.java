@@ -22,19 +22,17 @@ public class AuthService {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
 
-    /**
-     * Identifies the user type and fetches user details accordingly.
+    /*
+      Identifies the user type and fetches user details accordingly.
      */
     public UserDetails getUserDetails(String username) {
+        logger.info("AuthService: Checking which User is this: {}", username);
+        logger.info("AuthService: Checking if User is Staff: {}", staffService.existsByUsername(username));
         if (staffService.existsByUsername(username)) {
+            logger.info("AuthService: User is from StaffService: {}", username);
             return staffService.loadUserByUsername(username);
-//        } else if (hodService.existByUserName(username)) {
-//            return hodService.loadUserByUsername(username);
-//        } else if (clerkService.existByUserName(username)) {
-//            return clerkService.loadUserByUsername(username);
-//        } else if (principalService.existByUserName(username)) {
-//            return principalService.loadUserByUsername(username);
         } else if (membershipRequestService.existsByUsername(username)) {
+            logger.info("AuthService: User is from Membership: {}", username);
             return membershipRequestService.loadUserByUsername(username);
         }
         return null;

@@ -1,14 +1,16 @@
 package com.gatepass.controllers;
 
 import com.gatepass.dtos.LoginDTO;
+import com.gatepass.models.MembershipEntity;
 import com.gatepass.service.AuthService;
 import com.gatepass.service.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,6 +21,7 @@ public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private final AuthenticationManager authenticationManager;
+    private final ModelMapper modelMapper;
     private final AuthService authService;
     private final JwtService jwtService;
 
@@ -28,24 +31,29 @@ public class AuthController {
         String password = loginDTO.getPassword();
         logger.info("AuthController: authenticateUser() invoked with username: {}", username);
 
+        Authentication authentication;
         // Authentication
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             logger.info("Authentication successful for user: {}", username);
         } catch (Exception e) {
             logger.error("Authentication failed for user: {}", username);
-            return "Authentication failed!";
+            return "AuthController: Authentication failed!"+e;
         }
 
-        // Fetch user details
-        UserDetails userDetails = authService.getUserDetails(username);
-        if (userDetails == null) {
+
+        if (authentication == null) {
             logger.warn("No user found with username: {}", username);
             return "User not found!";
+        }else{
+            logger.info("User found with username: {}", username);
         }
 
+        MembershipEntity authenticatedMembershipEntity  = (MembershipEntity) authentication.getPrincipal();
+        LoginDTO authenticatedLoginDTO = modelMapper.map(authenticatedMembershipEntity, LoginDTO.class);
+
         // Generate token
-        String token = jwtService.generateToken(username);
+        String token = jwtService.generateToken(authenticatedLoginDTO);
         logger.info("Generated token for {}: {}", username, token);
         return token;
     }

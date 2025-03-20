@@ -18,17 +18,18 @@ public class StaffService implements UserDetailsService {
 
     private final StaffRepo staffRepo;
     private final ModelMapper modelMapper;
+
     private final Logger logger = LoggerFactory.getLogger(StaffService.class);
 
     public boolean existsByUsername(String userName) {
         return staffRepo.findByUsername(userName).isPresent();
     }
 
-    public LoginDTO getStaffDetails(String userName) {
-        StaffEntity staffEntity = staffRepo.findByUsername(userName)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return modelMapper.map(staffEntity, LoginDTO.class);
-    }
+//    public LoginDTO getStaffDetails(String userName) {
+//        StaffEntity staffEntity = staffRepo.findByUsername(userName)
+//                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+//        return modelMapper.map(staffEntity, LoginDTO.class);
+//    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

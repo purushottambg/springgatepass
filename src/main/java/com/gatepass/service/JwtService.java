@@ -1,5 +1,7 @@
 package com.gatepass.service;
 
+import com.gatepass.dtos.LoginDTO;
+import com.gatepass.models.MembershipEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -21,8 +23,8 @@ public class JwtService {
     private static final long EXPIRATION_TIME = 1000 * 60 * 60;  // 1 hour
 
     // Generate token using UserDetails
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(userDetails.getUsername());
+    public String generateToken(LoginDTO loginDTO) {
+        return generateToken(loginDTO.getUserName());
     }
 
     // Generate token using username

@@ -99,7 +99,7 @@ public class MembershipRequestService implements UserDetailsService{
     four digits of the phone number.
      */
 
-    /*public String getDynamicUsername(MembershipEntity membershipEntity){
+/*public String getDynamicUsername(MembershipEntity membershipEntity){
         String firstName = membershipEntity.getFname().toLowerCase();
         String phone = membershipEntity.getPhone();
         logger.info("Generated username: {}", firstName + phone.substring(phone.length() - 4));
