@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface StaffRepo extends JpaRepository<StaffEntity, Long> {
     public Optional<StaffEntity> findByUsername(String username);
+
+    boolean existsByUsername(String username);
 }

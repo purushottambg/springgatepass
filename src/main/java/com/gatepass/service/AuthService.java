@@ -28,6 +28,7 @@ public class AuthService {
     public UserDetails getUserDetails(String username) {
         logger.info("AuthService: Checking which User is this: {}", username);
         logger.info("AuthService: Checking if User is Staff: {}", staffService.existsByUsername(username));
+
         if (staffService.existsByUsername(username)) {
             logger.info("AuthService: User is from StaffService: {}", username);
             return staffService.loadUserByUsername(username);
