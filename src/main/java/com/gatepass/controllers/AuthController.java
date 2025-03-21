@@ -1,11 +1,8 @@
 package com.gatepass.controllers;
 
 import com.gatepass.dtos.LoginDTO;
-import com.gatepass.models.MembershipEntity;
-import com.gatepass.service.AuthService;
 import com.gatepass.service.JwtService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,8 +19,6 @@ public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private final AuthenticationManager authenticationManager;
-    private final ModelMapper modelMapper;
-    private final AuthService authService;
     private final JwtService jwtService;
 
     @PostMapping("/login")
@@ -51,11 +46,10 @@ public class AuthController {
         }
 
         UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
-        //LoginDTO authenticatedLoginDTO = modelMapper.map(userDetails, LoginDTO.class);
 
         // Generate token
         String token = jwtService.generateToken(userDetails);
         logger.info("Generated token for {}: {}", username, token);
-        return token;
+        return jwtService.extractUsername(token)+" is the username while token is: "+token+" Valid: "+jwtService.isTokenValid(token, userDetails);
     }
 }
