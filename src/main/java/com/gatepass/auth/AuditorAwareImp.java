@@ -14,7 +14,7 @@ public class AuditorAwareImp implements AuditorAware<String> {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();  //This is the global variable to access all the values in security context
 
         if (authentication == null && !authentication.isAuthenticated()) {
-            return Optional.of("Purushottam Gutthe");
+            return Optional .of("Purushottam Gutthe");
         }
 
         return Optional.of(authentication.getName());
