@@ -49,7 +49,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/index","/", "/auth/login", "/ops/save-request", "/ops/validate-login","/pages/**").permitAll()
-                .antMatchers("/mediafiles/JSCOE_logo.png", "/staticfrags/footer.html", "/staticfrags/header.html").permitAll()
+                .antMatchers("/mediafiles/JSCOE_logo.png", "/staticfrags/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

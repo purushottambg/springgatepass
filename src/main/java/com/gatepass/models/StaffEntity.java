@@ -3,6 +3,7 @@ package com.gatepass.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -69,7 +70,7 @@ public class StaffEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        return Collections.singletonList( new SimpleGrantedAuthority(this.designation));
     }
 
     @Override
@@ -101,4 +102,5 @@ public class StaffEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

@@ -38,7 +38,6 @@ public class AuthController {
             return "AuthController: Authentication failed!"+e;
         }
 
-
         if (authentication == null) {
             logger.warn("No user found with username: {}", username);
             return "User not found!";
@@ -47,6 +46,7 @@ public class AuthController {
         }
 
         UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
+        logger.info("found the type of user is: {}",userDetails.getAuthorities());
 
         // Generate token
         String token = jwtService.generateToken(userDetails);
