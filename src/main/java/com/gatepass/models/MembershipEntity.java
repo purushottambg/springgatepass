@@ -47,6 +47,9 @@ public class MembershipEntity  extends AuditableEntity  implements UserDetails {
     @Column(nullable = false, length = 40)
     private String email;
 
+    @Column(columnDefinition = "Varchar(10) default 'pending'")
+    private String status;
+
     @Column(nullable = false)
     private String password;
 

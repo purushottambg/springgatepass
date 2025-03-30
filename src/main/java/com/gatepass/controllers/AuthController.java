@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/public")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -46,7 +46,12 @@ public class AuthController {
         }
 
         UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
-        logger.info("found the type of user is: {}",userDetails.getAuthorities());
+        String userType = userDetails.getAuthorities().toString();
+        if (userType.contains("AsstProfessor")){
+            logger.warn("User Identified as teaching staff");
+        }else if (userType.contains("AsstProfessor")){
+            logger.warn("User not Identified as teaching staff {} vs {}", userType, "AsstProfessor");
+        }
 
         // Generate token
         String token = jwtService.generateToken(userDetails);

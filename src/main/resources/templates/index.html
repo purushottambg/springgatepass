@@ -28,7 +28,7 @@
             <div th:if="${failureResponse}" class="error-message">
                 <p th:text="${failureResponse}"></p>
             </div>
-            <form th:method="POST" th:action="@{/auth/login}" th:object="${loginDTO}">
+            <form th:method="POST" th:action="@{/public/login}" th:object="${loginDTO}">
                 <div class="form-group">
                     <label>UserName</label>
                     <input type="text" class="form-control" id="staff" name="username" placeholder="username1234" th:field="*{userName}" required>
