@@ -1,8 +1,12 @@
 package com.gatepass.controllers;
 
 import com.gatepass.dtos.LoginDTO;
+import com.gatepass.dtos.PassDTO;
+import com.gatepass.models.MembershipEntity;
+import com.gatepass.models.StaffEntity;
 import com.gatepass.service.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,9 +14,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/public")
 @RequiredArgsConstructor
 public class AuthController {
@@ -21,9 +27,10 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final ModelMapper modelMapper; 
 
     @PostMapping("/login")
-    public String authenticateUser(@ModelAttribute LoginDTO loginDTO) {
+    public String authenticateUser(Model model, @ModelAttribute LoginDTO loginDTO) {
         String username = loginDTO.getUserName();
         String password = loginDTO.getPassword();
         logger.info("AuthController: authenticateUser() invoked with username: {}", username);
@@ -40,20 +47,31 @@ public class AuthController {
 
         if (authentication == null) {
             logger.warn("No user found with username: {}", username);
-            return "User not found!";
         }else{
             logger.info("User found with username: {}", username);
         }
 
         UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
-        String userType = userDetails.getAuthorities().toString();
-        if (userType.contains("AsstProfessor")){
-            logger.warn("User Identified as teaching staff");
-        }else if (userType.contains("AsstProfessor")){
-            logger.warn("User not Identified as teaching staff {} vs {}", userType, "AsstProfessor");
+        Object userType = userDetails.getClass();
+
+        if (userType.toString().contains("MembershipEntity")){
+            logger.warn("User Identified as Requested Member");
+            MembershipEntity membershipEntity= modelMapper.map(userDetails, MembershipEntity.class);
+            model.addAttribute("membershipEntity", membershipEntity);
+            return "ops/saved-request";
+        }else if (userType.toString().contains("StaffEntity")){
+            logger.warn("User Identified as teaching staff {}", userType);
+            LoginDTO loginDTO1 = modelMapper.map(userDetails, LoginDTO.class);
+            model.addAttribute("loginDTO", loginDTO1);
+            model.addAttribute("passDTO", new PassDTO());
+            return "pages/staff";
+        }else if (userType.toString().contains("HODEntity")){
+            logger.warn("User Identified as HOD {}", userType);
+            return "pages/hod-home";
+        }else {
+            logger.warn("Failed to identify the userType {}", userType.toString().contains("MembershipEntity"));
         }
 
-        // Generate token
         String token = jwtService.generateToken(userDetails);
         Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
         logger.info("Generated token for {}: {}", username, token);

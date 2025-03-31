@@ -103,4 +103,8 @@ public class StaffEntity implements UserDetails {
         return true;
     }
 
+    public Object userType(){
+        return this.getClass().getName();
+    }
+
 }

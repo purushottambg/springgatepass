@@ -71,4 +71,9 @@ public class MembershipEntity  extends AuditableEntity  implements UserDetails {
     @Override
     public boolean isEnabled() { return true; }
 
+    public Object userType(){
+        return this.getClass().getName();
+    }
+
+
 }

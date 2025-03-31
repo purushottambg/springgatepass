@@ -30,7 +30,7 @@
         <form role="form" th:method="post" th:action="@{/ops/save-request}" th:object="${membershipEntity}">
             <div class="form-group">
                 <label for="sname" required>User Name</label>
-                <input type="text" class="form-control" placeholder="username1234" name="username" id="username" pattern="[A-Za-z0-9]+" title="Try to enter your first name followed by last fout digits of your phone Number" th:field="*{username}" required readonly>
+                <input type="text" class="form-control" placeholder="username1234" name="username" id="username" pattern="[A-Za-z0-9]+" title="Try to enter your first name followed by last four digits of your phone Number" th:field="*{username}" required readonly>
             </div>
 
             <div class="form-group">
@@ -72,7 +72,7 @@
             <div class="form-group">
                 <label for="designation" required>Designation</label>
                     <select class="form-control" id="designation" name="designation" th:field="*{designation}">
-                    <option   value="null">Your Role</option>
+                    <option value="null">Your Role</option>
                     <option id="Staff" value="Asstprofessor ">Assistant Professor </option>
                     <option id="TPO" value="TPO">TPO</option>
                     <option id="Library" value="Library">Library</option>
