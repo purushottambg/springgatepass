@@ -36,7 +36,6 @@ public class SecurityConfig {
     public SecurityConfig(
             JwtAuthFilter jwtAuthenticationFilter,
             CustomUserDetailsService  customUserDetailsService,
-            @Lazy UserDetailsService userDetailsService,
             PasswordEncoder passwordEncoder) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.customUserDetailsService = customUserDetailsService;
@@ -48,7 +47,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/index","/", "/public/**", "/ops/save-request", "/ops/validate-login","/pages/**").permitAll()
+                .antMatchers("/index","/", "/auth/login").permitAll()
                 .antMatchers("/mediafiles/JSCOE_logo.png", "/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -56,7 +55,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterAfter(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

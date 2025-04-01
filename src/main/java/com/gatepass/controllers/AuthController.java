@@ -19,7 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/public")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
