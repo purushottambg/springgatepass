@@ -3,7 +3,6 @@ package com.gatepass.controllers;
 import com.gatepass.dtos.LoginDTO;
 import com.gatepass.dtos.PassDTO;
 import com.gatepass.models.MembershipEntity;
-import com.gatepass.models.StaffEntity;
 import com.gatepass.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,6 +21,13 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+
+/*
+Identify the type of user, get it authenticated with the help of spring security.
+generate token by calling the function for JWTService.
+redirect the user to his home page for his further operations.
+ */
+
 public class AuthController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
@@ -31,25 +37,17 @@ public class AuthController {
     private final ModelMapper modelMapper; 
 
     @PostMapping("/login")
-    public String authenticateUser(Model model, @ModelAttribute LoginDTO loginDTO, HttpSession session) {
-        String username = loginDTO.getUserName();
-        String password = loginDTO.getPassword();
-        logger.info("AuthController: authenticateUser() invoked with username: {}", username);
+    public String authenticateUser(Model model, @ModelAttribute LoginDTO loginDTO, HttpSession session) throws Exception{
 
-        Authentication authentication;
-        // Authentication
-        try {
-            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            logger.info("Authentication successful for user: {}", username);
-        } catch (Exception e) {
-            logger.error("Authentication failed for user: {}", username);
-            return "AuthController: Authentication failed!"+e;
-        }
+
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUserName(), loginDTO.getPassword()));
+        logger.info("Authentication successful for user: {}", loginDTO.getUserName());
+
 
         if (authentication == null) {
-            logger.warn("No user found with username: {}", username);
+            logger.warn("No user found with username: {}", loginDTO.getUserName());
         }else{
-            logger.info("User found with username: {}", username);
+            logger.info("User found with username: {}",  loginDTO.getUserName());
         }
 
         UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
