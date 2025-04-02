@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/auth")
@@ -30,7 +31,7 @@ public class AuthController {
     private final ModelMapper modelMapper; 
 
     @PostMapping("/login")
-    public String authenticateUser(Model model, @ModelAttribute LoginDTO loginDTO) {
+    public String authenticateUser(Model model, @ModelAttribute LoginDTO loginDTO, HttpSession session) {
         String username = loginDTO.getUserName();
         String password = loginDTO.getPassword();
         logger.info("AuthController: authenticateUser() invoked with username: {}", username);
@@ -52,6 +53,11 @@ public class AuthController {
         }
 
         UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
+        final String token = jwtService.generateToken(userDetails);
+        Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+
+        session.setAttribute("Authorization", "Bearer "+token);
+
         Object userType = userDetails.getClass();
 
         if (userType.toString().contains("MembershipEntity")){
@@ -72,10 +78,6 @@ public class AuthController {
             logger.warn("Failed to identify the userType {}", userType.toString().contains("MembershipEntity"));
         }
 
-        String token = jwtService.generateToken(userDetails);
-        Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
-        logger.info("Generated token for {}: {}", username, token);
-        logger.info("AuthController: Username from the security context: {}", authentication1.getName());
-        return jwtService.extractUsername(token)+" is the username while token is: "+token+" Valid: "+jwtService.isTokenValid(token, userDetails);
+        return "login";
     }
 }

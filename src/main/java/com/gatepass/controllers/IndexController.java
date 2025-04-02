@@ -11,6 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(path = "/")
+
+/*
+This is the entry point of the program/web application, index page can be accessed using two paths.
+/index - this is the complete address
+/ - this is the directory with half address
+both the pages needs one log in DTO. which is passed from this route, that's it
+ */
+
 public class IndexController {
 
     private final Logger logger = LoggerFactory.getLogger(IndexController.class);
