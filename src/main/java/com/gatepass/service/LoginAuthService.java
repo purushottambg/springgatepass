@@ -40,6 +40,7 @@ public class LoginAuthService {
         } else if (staffService.existsByUsername(loginDTO.getUserName())) {
             userDetails = staffService.loadUserByUsername(loginDTO.getUserName());
         } else {
+
             throw new UsernameNotFoundException("User not found");
         }
 

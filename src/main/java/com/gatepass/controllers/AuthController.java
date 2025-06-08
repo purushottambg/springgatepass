@@ -62,15 +62,19 @@ public class AuthController {
             logger.warn("User Identified as Requested Member");
             MembershipEntity membershipEntity= modelMapper.map(userDetails, MembershipEntity.class);
             model.addAttribute("membershipEntity", membershipEntity);
+            model.addAttribute("success", membershipEntity.getUsername());
             return "ops/saved-request";
         }else if (userType.toString().contains("StaffEntity")){
             logger.warn("User Identified as teaching staff {}", userType);
             LoginDTO loginDTO1 = modelMapper.map(userDetails, LoginDTO.class);
             model.addAttribute("loginDTO", loginDTO1);
+            model.addAttribute("success", loginDTO1);
             model.addAttribute("passDTO", new PassDTO());
             return "pages/staff";
         }else if (userType.toString().contains("HODEntity")){
             logger.warn("User Identified as HOD {}", userType);
+            LoginDTO loginDTO1 = modelMapper.map(userDetails, LoginDTO.class);
+            model.addAttribute("success", loginDTO1);
             return "pages/hod-home";
         }else {
             logger.warn("Failed to identify the userType {}", userType.toString().contains("MembershipEntity"));
