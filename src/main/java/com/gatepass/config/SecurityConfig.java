@@ -47,9 +47,9 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/index","/", "/auth/login").permitAll()
+                .antMatchers("/index","/", "/auth/login/**").permitAll()
                 .antMatchers("/mediafiles/JSCOE_logo.png", "/css/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
