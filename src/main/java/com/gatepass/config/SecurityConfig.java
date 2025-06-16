@@ -49,13 +49,14 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/index","/", "/auth/login/**").permitAll()
                 .antMatchers("/mediafiles/JSCOE_logo.png", "/css/**").permitAll()
+                .antMatchers("/auth/**", "/css/**", "/js/**", "/images/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Add customized filter to the filter chain
 
         return http.build();
     }

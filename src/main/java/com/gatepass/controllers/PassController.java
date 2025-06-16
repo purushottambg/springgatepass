@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class PassController {
     private final PassesService passesService;
+
     Logger logger = LoggerFactory.getLogger(PassController.class);
+
     @PostMapping("/ops/save-pass")
     public String savePass(@ModelAttribute("passDTO") PassDTO passDTO, Model model){
         Long createdPassId = passesService.savePass(passDTO);
