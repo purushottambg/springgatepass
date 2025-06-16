@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "passes", uniqueConstraints = @UniqueConstraint(columnNames = {"passid"}))
 public class PassEntity extends AuditableEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long passid;
 
     private String outtime;

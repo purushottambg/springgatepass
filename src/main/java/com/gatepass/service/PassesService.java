@@ -1,6 +1,5 @@
 package com.gatepass.service;
 
-//import com.gatepass.controllers.OpsController;
 import com.gatepass.dtos.PassDTO;
 import com.gatepass.exceptions.FailedToSavePassException;
 import com.gatepass.models.PassEntity;
@@ -30,18 +29,19 @@ public class PassesService {
         log.info("staff id in service layer is: {}", passDTO.getStaffid());
 
         modelMapper.typeMap(PassDTO.class, PassEntity.class)
-                .setConverter(context -> {
-                    PassDTO src = context.getSource();
-                    PassEntity dest = new PassEntity();
-                    dest.setStaffEntity(staffRepo.getById(src.getStaffid()));
-                    dest.setReason(src.getReason());
-                    dest.setSubReason(src.getSubreason());
-                    dest.setIntime(src.getIntime());
-                    dest.setOuttime(src.getOuttime());
-                    dest.setDescription(src.getDescription());
+                .setConverter(
+                        context -> {
+                            PassDTO src = context.getSource();
+                            PassEntity dest = new PassEntity();
+                            dest.setStaffEntity(staffRepo.getById(src.getStaffid()));
+                            dest.setReason(src.getReason());
+                            dest.setSubReason(src.getSubreason());
+                            dest.setIntime(src.getIntime());
+                            dest.setOuttime(src.getOuttime());
+                            dest.setDescription(src.getDescription());
 
-                    return dest;
-                });
+                        return dest;
+                    });
 
         PassEntity tobeSavedPass = modelMapper.map(passDTO, PassEntity.class);
 

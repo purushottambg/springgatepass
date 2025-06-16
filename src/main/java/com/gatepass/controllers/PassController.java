@@ -22,7 +22,11 @@ public class PassController {
 
     @PostMapping("/ops/save-pass")
     public String savePass(@ModelAttribute("passDTO") PassDTO passDTO, Model model){
+
+        logger.info("Pass Id request reached till the controller with staff id: {}", passDTO.getStaffid());
+
         Long createdPassId = passesService.savePass(passDTO);
+
         if(createdPassId!=null && createdPassId>0){
             logger.info("Created Pass Id is {}", createdPassId);
             model.addAttribute("passsubmission","Pass is successfully created with passid: "+createdPassId);
