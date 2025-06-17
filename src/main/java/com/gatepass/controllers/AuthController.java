@@ -72,7 +72,9 @@ public class AuthController {
             logger.warn("User Identified as teaching staff {}", userType);
             LoginDTO loggedInUserDTO = modelMapper.map(userDetails, LoginDTO.class);
             model.addAttribute("loggedInUserDTO", loggedInUserDTO);
-            model.addAttribute("passDTO", new PassDTO());
+            PassDTO passDTO = new PassDTO();
+            passDTO.setUserName(loggedInUserDTO.getUserName());
+            model.addAttribute("passDTO", passDTO);
 
             return "pages/staff";       //Forward the request to the staff home page
 

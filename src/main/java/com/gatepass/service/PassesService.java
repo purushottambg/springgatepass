@@ -3,6 +3,7 @@ package com.gatepass.service;
 import com.gatepass.dtos.PassDTO;
 import com.gatepass.exceptions.FailedToSavePassException;
 import com.gatepass.models.PassEntity;
+import com.gatepass.models.StaffEntity;
 import com.gatepass.repository.PassesRepo;
 import com.gatepass.repository.StaffRepo;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,8 +29,13 @@ public class PassesService {
         modelmapper.typeMap is a kinda mapper that defines how mapping should take place
          */
 
-        log.info("staff userName in service layer is: {}", passDTO.getUserName());
-        passDTO.setStaffId(staffRepo.getStaffidByUsername(passDTO.getUserName()));
+        log.info("staff userName in service layer is: {}", passDTO.getUserName().toLowerCase());
+        Optional<StaffEntity> queryStaffByUserName = staffRepo.findByUsername(passDTO.getUserName());
+        Long userID = queryStaffByUserName.map(StaffEntity::getStaffid).orElse(null);
+        passDTO.setStaffId(userID);
+
+        log.info("Staff id for the username {} is: {}",passDTO.getUserName(), userID);
+        //passDTO.setStaffId();
         modelMapper.typeMap(PassDTO.class, PassEntity.class)
                 .setConverter(
                         context -> {

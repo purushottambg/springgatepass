@@ -11,5 +11,5 @@ public interface StaffRepo extends JpaRepository<StaffEntity, Long> {
 
     boolean existsByUsername(String username);
 
-    Long getStaffidByUsername(String userName);
+
 }
