@@ -16,6 +16,8 @@ public class PassDTO {
 
     private Long passId;
 
+    private Long staffId;
+
     private String outtime;
 
     private String intime;
@@ -26,5 +28,5 @@ public class PassDTO {
 
     private String description;
 
-    private Long staffid;
+    private String userName;
 }

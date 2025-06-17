@@ -23,7 +23,12 @@ public class PassController {
     @PostMapping("/ops/save-pass")
     public String savePass(@ModelAttribute("passDTO") PassDTO passDTO, Model model){
 
-        logger.info("Pass Id request reached till the controller with staff id: {}", passDTO.getStaffid());
+        logger.info("PassController  staff userName: {}", passDTO.getUserName());
+        logger.info("PassController  out time: {}", passDTO.getOuttime());
+        logger.info("PassController  in time : {}", passDTO.getIntime());
+        logger.info("PassController  main reason: {}", passDTO.getReason());
+        logger.info("PassController  sub reason: {}", passDTO.getSubreason());
+
 
         Long createdPassId = passesService.savePass(passDTO);
 

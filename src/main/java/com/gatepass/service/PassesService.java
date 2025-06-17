@@ -26,14 +26,14 @@ public class PassesService {
         modelmapper.typeMap is a kinda mapper that defines how mapping should take place
          */
 
-        log.info("staff id in service layer is: {}", passDTO.getStaffid());
-
+        log.info("staff userName in service layer is: {}", passDTO.getUserName());
+        passDTO.setStaffId(staffRepo.getStaffidByUsername(passDTO.getUserName()));
         modelMapper.typeMap(PassDTO.class, PassEntity.class)
                 .setConverter(
                         context -> {
                             PassDTO src = context.getSource();
                             PassEntity dest = new PassEntity();
-                            dest.setStaffEntity(staffRepo.getById(src.getStaffid()));
+                            dest.setStaffEntity(staffRepo.getById(src.getStaffId()));
                             dest.setReason(src.getReason());
                             dest.setSubReason(src.getSubreason());
                             dest.setIntime(src.getIntime());

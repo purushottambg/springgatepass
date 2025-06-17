@@ -51,8 +51,10 @@ public class AuthController {
         }
 
         UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
+        logger.info("Trying to print the userDetails:{}",userDetails.getUsername());
         final String token = jwtService.generateToken(userDetails);
         Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+        logger.info("JWT Session is created:{}",token);
 
         session.setAttribute("Authorization", "Bearer "+token);
 
@@ -63,14 +65,17 @@ public class AuthController {
             MembershipEntity membershipEntity= modelMapper.map(userDetails, MembershipEntity.class);
             model.addAttribute("membershipEntity", membershipEntity);
             model.addAttribute("success", membershipEntity.getUsername());
-            return "ops/saved-request";
+
+            return "ops/saved-request";     //Forward the request to the reqesters home page
+
         }else if (userType.toString().contains("StaffEntity")){
             logger.warn("User Identified as teaching staff {}", userType);
-            LoginDTO loginDTO1 = modelMapper.map(userDetails, LoginDTO.class);
-            model.addAttribute("loginDTO", loginDTO1);
-            model.addAttribute("success", loginDTO1);
+            LoginDTO loggedInUserDTO = modelMapper.map(userDetails, LoginDTO.class);
+            model.addAttribute("loggedInUserDTO", loggedInUserDTO);
             model.addAttribute("passDTO", new PassDTO());
-            return "pages/staff";
+
+            return "pages/staff";       //Forward the request to the staff home page
+
         }else if (userType.toString().contains("HODEntity")){
             logger.warn("User Identified as HOD {}", userType);
             LoginDTO loginDTO1 = modelMapper.map(userDetails, LoginDTO.class);

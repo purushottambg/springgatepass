@@ -5,10 +5,9 @@
   <link rel="stylesheet" th:href="@{/css/style.css}">
   <title>Staff</title>
 </head>
-<body th:object="${loginDTO}">
+<body>
 
 <header th:insert="staticfrags/header">
-
 </header>
 <div class="form-container">
   <div class="form-container">
@@ -23,7 +22,7 @@
         <div class="form-group">
           <label for="date">Date:</label>
           <input type="date" id="date" name="date"  readonly>
-          <input type="hidden" name="staffId" th:value="${passDTO.staffid}" th:field="*{staffid}">
+          <input type="hidden" name="staffId" th:value="${loggedInUserDTO.getUserName}" th:field="*{userName}">
         </div>
         <div class="form-group">
           <label for="out-time">Out Time:</label>
