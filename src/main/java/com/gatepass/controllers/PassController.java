@@ -29,6 +29,9 @@ public class PassController {
         logger.info("PassController  main reason: {}", passDTO.getReason());
         logger.info("PassController  sub reason: {}", passDTO.getSubreason());
 
+        if(passDTO==null){
+            logger.info("Pass DTO is null at PASS CONTROLLER Layer");
+        }
 
         Long createdPassId = passesService.savePass(passDTO);
 

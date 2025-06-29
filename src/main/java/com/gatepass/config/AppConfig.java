@@ -17,10 +17,6 @@ Configuration class that enables to inject the beans like model mapper and audit
 public class AppConfig {
 
     @Bean
-    ModelMapper modelMapper(){
-        return new ModelMapper();
-    }
-    @Bean
     AuditorAware<String> getAuditorAwareImpl(){
         return new AuditorAwareImp();
     }

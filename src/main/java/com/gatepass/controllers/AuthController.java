@@ -4,6 +4,7 @@ import com.gatepass.dtos.LoginDTO;
 import com.gatepass.dtos.PassDTO;
 import com.gatepass.models.MembershipEntity;
 import com.gatepass.service.JwtService;
+import com.gatepass.service.StaffService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -34,6 +35,7 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final StaffService staffService;
     private final ModelMapper modelMapper; 
 
     @PostMapping("/login")
@@ -70,10 +72,11 @@ public class AuthController {
 
         }else if (userType.toString().contains("StaffEntity")){
             logger.warn("User Identified as teaching staff {}", userType);
-            LoginDTO loggedInUserDTO = modelMapper.map(userDetails, LoginDTO.class);
+            LoginDTO loggedInUserDTO = staffService.findByUsername(userDetails.getUsername());
             model.addAttribute("loggedInUserDTO", loggedInUserDTO);
+            logger.info("Logged in user pass ID: "+loggedInUserDTO.getId());
             PassDTO passDTO = new PassDTO();
-            passDTO.setUserName(loggedInUserDTO.getUserName());
+            passDTO.setStaffId(loggedInUserDTO.getId());
             model.addAttribute("passDTO", passDTO);
 
             return "pages/staff";       //Forward the request to the staff home page

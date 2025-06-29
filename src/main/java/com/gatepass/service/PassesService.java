@@ -31,11 +31,16 @@ public class PassesService {
 
         log.info("staff userName in service layer is: {}", passDTO.getUserName().toLowerCase());
         Optional<StaffEntity> queryStaffByUserName = staffRepo.findByUsername(passDTO.getUserName());
-        Long userID = queryStaffByUserName.map(StaffEntity::getStaffid).orElse(null);
-        passDTO.setStaffId(userID);
+        queryStaffByUserName.ifPresent(staffEntity -> {
+            passDTO.setStaffId(queryStaffByUserName.get().getStaffid());
+            log.info("Pass Staff id: {}, Entity Staff ID: {}",passDTO.getStaffId(), staffEntity.getStaffid());
+        });
 
-        log.info("Staff id for the username {} is: {}",passDTO.getUserName(), userID);
-        //passDTO.setStaffId();
+         queryStaffByUserName.ifPresent(staffEntity -> {
+             log.info("User ID after querying based on username: {}",staffEntity.getStaffid());
+         });
+
+        log.info("Staff id for the username {} is: {}",passDTO.getUserName(), passDTO.getStaffId());
         modelMapper.typeMap(PassDTO.class, PassEntity.class)
                 .setConverter(
                         context -> {
@@ -52,7 +57,7 @@ public class PassesService {
                     });
 
         PassEntity tobeSavedPass = modelMapper.map(passDTO, PassEntity.class);
-
+        log.info("To be saved pass staff id: {}",tobeSavedPass.getStaffEntity());
         PassEntity savedPass = passesRepo.save(tobeSavedPass);
 
         if ( savedPass!=null && savedPass.getPassid()!=null ) {
