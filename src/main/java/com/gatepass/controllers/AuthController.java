@@ -77,6 +77,7 @@ public class AuthController {
             logger.info("Logged in user pass ID: "+loggedInUserDTO.getId());
             PassDTO passDTO = new PassDTO();
             passDTO.setStaffId(loggedInUserDTO.getId());
+            passDTO.setUserName(loginDTO.getUserName());
             model.addAttribute("passDTO", passDTO);
 
             return "pages/staff";       //Forward the request to the staff home page
