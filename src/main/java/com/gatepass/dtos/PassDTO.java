@@ -18,6 +18,8 @@ public class PassDTO {
 
     private Long staffId;
 
+    private String date;
+
     private String outtime;
 
     private String intime;

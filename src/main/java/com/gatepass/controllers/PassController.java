@@ -23,7 +23,11 @@ public class PassController {
     @PostMapping("/ops/save-pass")
     public String savePass(@ModelAttribute("passDTO") PassDTO passDTO, Model model){
 
+        logger.info("PassController  Pass Id: {}", passDTO.getPassId());
+        logger.info("PassController  staff id: {}", passDTO.getStaffId());
         logger.info("PassController  staff userName: {}", passDTO.getUserName());
+        logger.info("PassController  pass date: {}", passDTO.getDate());
+        logger.info("PassController  Pass description: {}", passDTO.getDescription());
         logger.info("PassController  out time: {}", passDTO.getOuttime());
         logger.info("PassController  in time : {}", passDTO.getIntime());
         logger.info("PassController  main reason: {}", passDTO.getReason());
@@ -34,10 +38,10 @@ public class PassController {
         }
 
         Long createdPassId = passesService.savePass(passDTO);
-
+        logger.info("Created Pass Id:{} at the successful times ",createdPassId);
         if(createdPassId!=null && createdPassId>0){
             logger.info("Created Pass Id is {}", createdPassId);
-            model.addAttribute("passsubmission","Pass is successfully created with passid: "+createdPassId);
+            model.addAttribute("passsubmission","Pass is successfully created with pass id: "+createdPassId);
         }else{
             model.addAttribute("passsubmission","Pass creation failed");
         }

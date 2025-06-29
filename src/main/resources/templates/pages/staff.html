@@ -19,6 +19,7 @@
         <p name="passstatus" th:text="${passsubmission}"> </p>
       </div>
       <div class="form-row">
+        <input type="hidden" id="userName" name="userName" th:value="${loggedInUserDTO.userName}">
         <div class="form-group">
           <label for="date">Date:</label>
           <input type="date" id="date" name="date"  readonly>
@@ -30,10 +31,12 @@
       </div>
 
       <div class="form-row">
+
         <div class="form-group">
           <label for="in-time">In Time:</label>
           <input type="time" id="in-time" name="in-time" th:field="*{intime}" required>
         </div>
+
         <div class="form-group">
           <label for="reason">Reason:</label>
           <select id="reason" name="reason" th:field="*{reason}" required>
@@ -42,19 +45,23 @@
             <option value="personal">Personal</option>
           </select>
         </div>
+
       </div>
 
       <div class="form-row">
+
         <div class="form-group">
           <label for="sub-reason">Sub Reason:</label>
           <select id="sub-reason" name="sub-reason" th:field="*{subreason}" required>
             <option value="">Select Sub Reason</option>
           </select>
         </div>
+
         <div class="form-group">
           <label for="description">Description:</label>
           <textarea id="description" name="description" rows="4" th:field="*{description}" required></textarea>
         </div>
+
       </div>
 
       <div class="form-buttons">
