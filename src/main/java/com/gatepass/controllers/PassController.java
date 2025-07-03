@@ -1,7 +1,9 @@
 package com.gatepass.controllers;
 
+import com.gatepass.dtos.LoginDTO;
 import com.gatepass.dtos.PassDTO;
 import com.gatepass.service.PassesService;
+import com.gatepass.service.StaffService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class PassController {
     private final PassesService passesService;
+    private final StaffService staffService;
 
     Logger logger = LoggerFactory.getLogger(PassController.class);
 
@@ -46,7 +49,14 @@ public class PassController {
             model.addAttribute("passsubmission","Pass creation failed");
         }
 
+        LoginDTO loggedInUserDTO = staffService.findByUsername(passDTO.getUserName());
+        model.addAttribute("loggedInUserDTO", loggedInUserDTO);
+        logger.info("Logged in user pass ID: "+loggedInUserDTO.getId());
+        PassDTO newPassDTO = new PassDTO();
+        passDTO.setStaffId(loggedInUserDTO.getId());
+        passDTO.setUserName(passDTO.getUserName());
+        model.addAttribute("passDTO", passDTO);
 
-        return   "pages/staff";
+        return "pages/staff";
     }
 }
